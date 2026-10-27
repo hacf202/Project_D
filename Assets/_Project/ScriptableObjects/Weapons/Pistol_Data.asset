@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 658e8778e5126494b83f6d9e2ad6e04a, type: 3}
+  m_Name: Pistol_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Combat.WeaponDataSO
+  _weaponName: Pistol
+  _icon: {fileID: 0}
+  _damage: 10
+  _knockbackForce: 0
+  _projectilePrefab: {fileID: 6811489032236033356, guid: d8884bb669e8e65409e8ebe25d1e8855, type: 3}
+  _fireRate: 4
+  _range: 8
+  _projectilesPerShot: 1
+  _spreadAngle: 0

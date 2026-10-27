@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2XKO Champions | SENNA Moves List, Abilities & Playstyle</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Anton (Display) & Space Grotesk (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            riot: {
+              bg: '#090A0F',
+              panel: '#12151E',
+              panelHover: '#1A1F2C',
+              lime: '#D2FF28',      /* Màu xanh vàng đặc trưng của 2XKO */
+              teal: '#00F5D4',      /* Màu ma mị đặc trưng của Senna */
+              border: '#262B38',
+              muted: '#8E96AA'
+            }
+          },
+          fontFamily: {
+            display: ['Anton', 'sans-serif'],
+            sans: ['Space Grotesk', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #090A0F;
+      color: #F3F4F6;
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Họa tiết chấm bi Halftone và sọc chéo kiểu 2XKO */
+    .bg-halftone {
+      background-image: radial-gradient(rgba(210, 255, 40, 0.08) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+
+    .bg-diagonal-stripes {
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.02),
+        rgba(255, 255, 255, 0.02) 10px,
+        transparent 10px,
+        transparent 20px
+      );
+    }
+
+    /* Chữ viền rỗng khổng lồ làm nền (Outline Text) */
+    .stroke-text {
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.08);
+      color: transparent;
+    }
+
+    /* Cắt góc vát 45 độ đặc trưng (Chamfered Corners) */
+    .clip-chamfer {
+      clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+    }
+
+    .clip-chamfer-sm {
+      clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+    }
+
+    .clip-slant {
+      clip-path: polygon(0 0, 100% 0, 96% 100%, 0% 100%);
+    }
+
+    /* Thanh cuộn tùy chỉnh */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090A0F;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #262B38;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #D2FF28;
+    }
+
+    /* Hiệu ứng chuyển động cho màn hình mô phỏng chiêu thức */
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.06); }
+    }
+    .animate-glow {
+      animation: pulseGlow 3s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-halftone selection:bg-riot-lime selection:text-black">
+
+  <!-- ==================== 1. NAVIGATION BAR ==================== -->
+  <header class="sticky top-0 z-50 bg-riot-bg/90 backdrop-blur-md border-b border-riot-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Left: Brand + Links -->
+      <div class="flex items-center space-x-8">
+        <!-- Logo -->
+        <a href="#" class="flex items-center space-x-2 group">
+          <div class="bg-riot-lime text-black font-display text-3xl px-3 py-0.5 tracking-wider italic transform -skew-x-12 group-hover:bg-white transition">
+            2XKO
+          </div>
+          <span class="text-xs uppercase tracking-widest text-riot-muted font-bold hidden sm:inline-block">Riot Games</span>
+        </a>
+
+        <!-- Main Nav -->
+        <nav class="hidden md:flex items-center space-x-6 text-sm font-bold tracking-wider uppercase">
+          <a href="#news" class="text-gray-300 hover:text-riot-lime transition py-2">News</a>
+          <a href="#champions" class="text-riot-lime border-b-2 border-riot-lime py-2">Champions</a>
+          <a href="#competitive" class="text-gray-300 hover:text-riot-lime transition py-2">Competitive</a>
+          <a href="#wiki" class="text-gray-300 hover:text-riot-lime transition py-2">Wiki</a>
+          <a href="#support" class="text-gray-300 hover:text-riot-lime transition py-2">Support</a>
+        </nav>
+      </div>
+
+      <!-- Right: CTA -->
+      <div class="flex items-center space-x-4">
+        <a href="#fighters" class="hidden sm:inline-block text-xs uppercase tracking-widest font-bold text-riot-muted hover:text-white transition">
+          All Champions
+        </a>
+        <button class="bg-riot-lime text-black font-display uppercase tracking-wider px-6 py-2.5 text-sm clip-chamfer-sm hover:bg-white transition transform active:scale-95">
+          Sign In
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 2. HERO SECTION (CHAMPION BIO) ==================== -->
+  <section class="relative overflow-hidden border-b border-riot-border pt-10 pb-20 lg:py-24 bg-diagonal-stripes">
+    <!-- Chữ nền khổng lồ trang trí -->
+    <div class="absolute -top-6 left-0 right-0 pointer-events-none select-none overflow-hidden">
+      <div class="font-display text-[15rem] lg:text-[22rem] leading-none uppercase italic stroke-text tracking-tighter whitespace-nowrap">
+        SENNA // REDEEMER
+      </div>
+    </div>
+
+    <!-- Ánh sáng nền (Ambient Glow) -->
+    <div class="absolute top-1/4 right-10 w-96 h-96 bg-riot-teal/15 rounded-full blur-[130px] pointer-events-none"></div>
+    <div class="absolute bottom-10 left-1/4 w-80 h-80 bg-riot-lime/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Cột Trái: Thông tin nhân vật (7 cột) -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center space-x-3 bg-riot-panel border border-riot-border px-4 py-1.5 clip-chamfer-sm">
+            <span class="w-2.5 h-2.5 bg-riot-teal rounded-full animate-ping"></span>
+            <span class="text-riot-teal font-bold uppercase tracking-widest text-xs">The Redeemer</span>
+          </div>
+
+          <h1 class="font-display text-7xl sm:text-8xl lg:text-9xl uppercase italic tracking-tight leading-none text-white drop-shadow-[0_6px_0_rgba(210,255,40,0.25)]">
+            SENNA
+          </h1>
+
+          <p class="text-gray-300 text-lg sm:text-xl leading-relaxed max-w-2xl border-l-4 border-riot-lime pl-5 py-1">
+            A champion of the light cursed by darkness, Senna blasts foes with her vaunted relic cannon before rushing them down as a shadowy wraith. With two forms to choose from, she's highly capable of redeeming any corrupted soul.
+          </p>
+
+          <!-- Bảng thông số Bio 2x2 chuẩn 2XKO -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+            <div class="bg-riot-panel/90 border border-riot-border p-4 clip-chamfer-sm hover:border-riot-lime/60 transition">
+              <div class="text-xs font-bold uppercase tracking-widest text-riot-muted">Region</div>
+              <div class="text-lg font-bold text-white mt-1 flex items-center justify-between">
+                <span>Runeterra</span>
+                <span class="text-riot-lime text-xs font-mono">[01]</span>
+              </div>
+            </div>
+
+            <div class="bg-riot-panel/90 border border-riot-border p-4 clip-chamfer-sm hover:border-riot-lime/60 transition">
+              <div class="text-xs font-bold uppercase tracking-widest text-riot-muted">Archetype</div>
+              <div class="text-lg font-bold text-riot-teal mt-1 flex items-center justify-between">
+                <span>Hybrid (Zoner / Rushdown)</span>
+                <span class="text-riot-teal text-xs font-mono">[02]</span>
+              </div>
+            </div>
+
+            <div class="bg-riot-panel/90 border border-riot-border p-4 clip-chamfer-sm hover:border-riot-lime/60 transition">
+              <div class="text-xs font-bold uppercase tracking-widest text-riot-muted">Likes</div>
+              <div class="text-base font-semibold text-white mt-1">Second chances, target practice, horses</div>
+            </div>
+
+            <div class="bg-riot-panel/90 border border-riot-border p-4 clip-chamfer-sm hover:border-riot-lime/60 transition">
+              <div class="text-xs font-bold uppercase tracking-widest text-riot-muted">Dislikes</div>
+              <div class="text-base font-semibold text-white mt-1">Giving up</div>
+            </div>
+          </div>
+
+          <!-- Nút cuộn nhanh xuống bảng chiêu thức -->
+          <div class="pt-4 flex flex-wrap gap-4">
+            <a href="#moves-list" class="bg-riot-lime text-black font-display uppercase tracking-wider text-lg px-8 py-3.5 clip-chamfer hover:bg-white transition inline-flex items-center space-x-3">
+              <span>Explore Moves List</span>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            </a>
+            <a href="#screenshots" class="bg-riot-panel border border-riot-border text-white font-display uppercase tracking-wider text-lg px-8 py-3.5 clip-chamfer hover:border-riot-lime hover:text-riot-lime transition">
+              View Screenshots
+            </a>
+          </div>
+        </div>
+
+        <!-- Cột Phải: Artwork / Hình tượng nhân vật (5 cột) -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative mx-auto max-w-md lg:max-w-none">
+            <!-- Khung viền cắt góc trang trí phía sau -->
+            <div class="absolute -inset-3 bg-gradient-to-tr from-riot-lime via-riot-teal to-transparent opacity-30 clip-chamfer blur-sm"></div>
+            
+            <div class="relative bg-riot-panel border-2 border-riot-border clip-chamfer overflow-hidden group">
+              <!-- Nhãn trạng thái Form -->
+              <div class="absolute top-4 left-4 z-20 flex space-x-2">
+                <span class="bg-black/80 backdrop-blur border border-riot-lime text-riot-lime text-xs font-bold uppercase px-3 py-1">
+                  Human Form
+                </span>
+                <span class="bg-black/80 backdrop-blur border border-riot-teal text-riot-teal text-xs font-bold uppercase px-3 py-1">
+                  Wraith Form
+                </span>
+              </div>
+
+              <!-- Hình minh họa nhân vật chất lượng cao -->
+              <img 
+                src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_0.jpg" 
+                alt="Senna - The Redeemer" 
+                class="w-full h-[460px] object-cover object-center group-hover:scale-105 transition duration-700 filter contrast-110"
+              />
+
+              <!-- Lớp phủ Gradient dưới đáy -->
+              <div class="absolute inset-0 bg-gradient-to-t from-riot-bg via-riot-bg/30 to-transparent"></div>
+
+              <!-- Chú thích vũ khí -->
+              <div class="absolute bottom-4 left-4 right-4 p-4 bg-riot-bg/90 backdrop-blur border-l-4 border-riot-teal">
+                <div class="text-xs uppercase tracking-widest text-riot-teal font-bold">Signature Mechanic</div>
+                <div class="text-sm text-gray-200 mt-0.5">
+                  Build <strong>Wraith Meter</strong> in Human Form to unleash high-speed aerial & shadow combos in Wraith Form.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 3. MOVES LIST SECTION (INTERACTIVE) ==================== -->
+  <section id="moves-list" class="py-20 border-b border-riot-border relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Tiêu đề Section + Cơ chế nội tại Absolution -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
+        <div>
+          <div class="text-riot-lime font-bold uppercase tracking-widest text-sm flex items-center space-x-2">
+            <span>// Combat Data</span>
+            <span class="h-px w-12 bg-riot-lime inline-block"></span>
+          </div>
+          <h2 class="font-display text-5xl sm:text-6xl uppercase italic tracking-tight text-white mt-2">
+            MOVES LIST
+          </h2>
+        </div>
+
+        <!-- Hộp cơ chế đặc biệt: ABSOLUTION -->
+        <div class="bg-gradient-to-r from-riot-panel via-riot-panel to-riot-teal/10 border border-riot-teal/50 p-5 clip-chamfer max-w-2xl">
+          <div class="flex items-center space-x-2">
+            <span class="px-2 py-0.5 bg-riot-teal text-black font-bold text-xs uppercase tracking-wider">PassiveTrait</span>
+            <h3 class="font-display text-2xl uppercase italic tracking-wide text-white">Absolution</h3>
+          </div>
+          <p class="text-gray-300 text-sm mt-2 leading-relaxed">
+            Senna gains <strong class="text-riot-teal">Wraith meter</strong> from landing specials and certain normals in human form. Use <strong class="text-white">Wraith Shift</strong> and <strong class="text-white">Curse of the Black Mist</strong> to transform into Wraith form.
+          </p>
+        </div>
+      </div>
+
+      <!-- Thanh lọc Danh mục chiêu thức (Category Filter Tabs) -->
+      <div class="flex flex-wrap gap-2 mb-8 border-b border-riot-border pb-4" id="category-tabs">
+        <button data-category="ALL" class="tab-btn active-tab bg-riot-lime text-black font-display uppercase tracking-wider px-5 py-2 text-base clip-chamfer-sm transition">
+          All Moves (19)
+        </button>
+        <button data-category="Specials" class="tab-btn bg-riot-panel text-gray-300 hover:text-white border border-riot-border font-display uppercase tracking-wider px-5 py-2 text-base clip-chamfer-sm transition">
+          Specials (8)
+        </button>
+        <button data-category="Supers" class="tab-btn bg-riot-panel text-gray-300 hover:text-white border border-riot-border font-display uppercase tracking-wider px-5 py-2 text-base clip-chamfer-sm transition">
+          Supers (4)
+        </button>
+        <button data-category="Ultimate" class="tab-btn bg-riot-panel text-gray-300 hover:text-white border border-riot-border font-display uppercase tracking-wider px-5 py-2 text-base clip-chamfer-sm transition">
+          Ultimate (2)
+        </button>
+        <button data-category="Unique Moves" class="tab-btn bg-riot-panel text-gray-300 hover:text-white border border-riot-border font-display uppercase tracking-wider px-5 py-2 text-base clip-chamfer-sm transition">
+          Unique Moves (3)
+        </button>
+        <button data-category="Assists" class="tab-btn bg-riot-panel text-gray-300 hover:text-white border border-riot-border font-display uppercase tracking-wider px-5 py-2 text-base clip-chamfer-sm transition">
+          Assists (5)
+        </button>
+      </div>
+
+      <!-- Bố cục 2 cột: Danh sách chiêu (Trái) & Khung Preview Sticky (Phải) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Cột Trái: Danh sách chiêu thức cuộn dọc (7 cột) -->
+        <div class="lg:col-span-7 space-y-8" id="moves-container">
+          <!-- Được render tự động bằng JavaScript từ dữ liệu đầy đủ bên dưới -->
+        </div>
+
+        <!-- Cột Phải: Màn hình Preview Chiêu thức Cố định khi cuộn (Sticky 5 cột) -->
+        <div class="lg:col-span-5 lg:sticky lg:top-28">
+          <div class="bg-riot-panel border-2 border-riot-border clip-chamfer overflow-hidden shadow-2xl">
+            
+            <!-- Header của màn hình Preview -->
+            <div class="bg-black/60 px-5 py-3 border-b border-riot-border flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-riot-lime"></span>
+                <span id="preview-category" class="text-xs font-bold uppercase tracking-widest text-riot-lime">SPECIALS</span>
+              </div>
+              <span id="preview-meter" class="text-xs font-mono text-riot-muted">0 BAR COST</span>
+            </div>
+
+            <!-- Khung giả lập Video / Hoạt ảnh chiêu thức -->
+            <div class="relative h-64 sm:h-72 bg-black overflow-hidden flex items-center justify-center">
+              <img 
+                id="preview-image"
+                src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_1.jpg" 
+                alt="Move Preview" 
+                class="w-full h-full object-cover opacity-65 transition-all duration-500"
+              />
+              <!-- Hiệu ứng tia sáng giả lập đòn đánh -->
+              <div id="preview-fx" class="absolute inset-0 bg-gradient-to-tr from-riot-teal/40 via-transparent to-riot-lime/30 animate-glow pointer-events-none"></div>
+              
+              <!-- Nút Play Visualizer -->
+              <div class="relative z-10 text-center px-6">
+                <div class="inline-flex items-center space-x-2 bg-black/80 border border-white/20 px-3 py-1 text-xs uppercase tracking-widest text-gray-300 mb-2">
+                  <span>Move Demonstration</span>
+                </div>
+                <h4 id="preview-title-overlay" class="font-display text-4xl uppercase italic text-white drop-shadow-lg">
+                  Piercing Light
+                </h4>
+              </div>
+
+              <!-- Góc hiển thị Input trên màn hình video -->
+              <div id="preview-inputs-overlay" class="absolute bottom-3 left-4 right-4 flex items-center justify-between bg-black/85 backdrop-blur px-4 py-2 border-l-4 border-riot-lime">
+                <!-- Sẽ được cập nhật bằng JS -->
+              </div>
+            </div>
+
+            <!-- Chi tiết thông số & Mô tả chiêu thức -->
+            <div class="p-6 space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <h3 id="preview-name" class="font-display text-3xl uppercase italic text-white">
+                  Piercing Light
+                </h3>
+                <div id="preview-badges" class="flex flex-wrap gap-1.5">
+                  <!-- Badges cập nhật bằng JS -->
+                </div>
+              </div>
+
+              <p id="preview-desc" class="text-gray-300 text-sm leading-relaxed">
+                Senna fires a concentrated beam of relic light horizontally across the screen. Can be charged by holding the button to pierce through projectiles and deal increased guard damage.
+              </p>
+
+              <!-- Chú thích hệ thống nút bấm (Input Legend) -->
+              <div class="pt-4 border-t border-riot-border">
+                <div class="text-xs font-bold uppercase tracking-widest text-riot-muted mb-2.5">2XKO Input Notation Legend</div>
+                <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 text-xs">
+                  <div class="bg-black/50 p-1.5 rounded border border-riot-border text-center">
+                    <span class="font-bold text-blue-400">L</span> Light
+                  </div>
+                  <div class="bg-black/50 p-1.5 rounded border border-riot-border text-center">
+                    <span class="font-bold text-yellow-400">M</span> Medium
+                  </div>
+                  <div class="bg-black/50 p-1.5 rounded border border-riot-border text-center">
+                    <span class="font-bold text-red-400">H</span> Heavy
+                  </div>
+                  <div class="bg-black/50 p-1.5 rounded border border-riot-border text-center">
+                    <span class="font-bold text-riot-teal">S1</span> Spec 1
+                  </div>
+                  <div class="bg-black/50 p-1.5 rounded border border-riot-border text-center">
+                    <span class="font-bold text-purple-400">S2</span> Spec 2
+                  </div>
+                  <div class="bg-black/50 p-1.5 rounded border border-riot-border text-center">
+                    <span class="font-bold text-riot-lime">T</span> Team/Assist
+                  </div>
+                </div>
+              </div>
+
+              <!-- Link Universal Moves -->
+              <div class="pt-2">
+                <a href="#universal" class="w-full bg-riot-bg hover:bg-riot-lime hover:text-black text-riot-lime border border-riot-lime font-display uppercase tracking-wider py-2.5 text-center block text-sm transition clip-chamfer-sm">
+                  View Universal Moves List →
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 4. SCREENSHOTS GALLERY ==================== -->
+  <section id="screenshots" class="py-20 border-b border-riot-border bg-diagonal-stripes">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between mb-10">
+        <div>
+          <div class="text-riot-teal font-bold uppercase tracking-widest text-sm">// Visual Media</div>
+          <h2 class="font-display text-5xl sm:text-6xl uppercase italic text-white mt-1">SCREENSHOTS</h2>
+        </div>
+        <span class="text-xs font-mono uppercase text-riot-muted hidden sm:inline">Click any image to enlarge</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Screenshot 1 -->
+        <div onclick="openLightbox('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_0.jpg', 'Senna unleashing Relic Cannon Blast in Human Form')" class="group relative bg-riot-panel border border-riot-border clip-chamfer overflow-hidden cursor-pointer">
+          <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_0.jpg" alt="Senna Gameplay 1" class="w-full h-64 object-cover group-hover:scale-110 transition duration-500" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4">
+            <span class="text-sm font-bold text-riot-lime uppercase tracking-wider">01 // Relic Cannon Blast</span>
+          </div>
+        </div>
+
+        <!-- Screenshot 2 -->
+        <div onclick="openLightbox('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_1.jpg', 'True Damage Senna transforming with Wraith Shift')" class="group relative bg-riot-panel border border-riot-border clip-chamfer overflow-hidden cursor-pointer">
+          <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_1.jpg" alt="Senna Gameplay 2" class="w-full h-64 object-cover group-hover:scale-110 transition duration-500" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4">
+            <span class="text-sm font-bold text-riot-teal uppercase tracking-wider">02 // Wraith Shift Rushdown</span>
+          </div>
+        </div>
+
+        <!-- Screenshot 3 -->
+        <div onclick="openLightbox('https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_9.jpg', 'High Noon Senna executing Judgment: Condemnation Ultimate')" class="group relative bg-riot-panel border border-riot-border clip-chamfer overflow-hidden cursor-pointer">
+          <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_9.jpg" alt="Senna Gameplay 3" class="w-full h-64 object-cover group-hover:scale-110 transition duration-500" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4">
+            <span class="text-sm font-bold text-riot-lime uppercase tracking-wider">03 // Ultimate: Judgment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5. EXPLORE MORE FIGHTERS (ROSTER GRID) ==================== -->
+  <section id="fighters" class="py-20 border-b border-riot-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <div>
+          <div class="text-riot-lime font-bold uppercase tracking-widest text-sm">// Select Your Duo</div>
+          <h2 class="font-display text-5xl sm:text-6xl uppercase italic text-white mt-1">EXPLORE MORE FIGHTERS</h2>
+        </div>
+        <a href="#gallery" class="inline-flex items-center space-x-2 bg-riot-panel border border-riot-border hover:border-riot-lime px-5 py-2.5 text-sm font-bold uppercase tracking-wider text-white hover:text-riot-lime transition clip-chamfer-sm">
+          <span>Back to Champion Gallery</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <!-- Roster Grid chuẩn danh sách 16 tướng trên trang 2XKO -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3" id="roster-grid">
+        <!-- Được tạo tự động bằng JS bên dưới -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 6. FOOTER ==================== -->
+  <footer class="bg-black py-16 text-gray-400 text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      
+      <!-- Social Links -->
+      <div class="flex flex-wrap items-center justify-between gap-6 border-b border-riot-border pb-8">
+        <div class="flex items-center space-x-3">
+          <div class="bg-riot-lime text-black font-display text-2xl px-2.5 py-0.5 italic transform -skew-x-12">2XKO</div>
+          <span class="font-bold uppercase tracking-widest text-white">Riot Games</span>
+        </div>
+
+        <div class="flex flex-wrap gap-6 font-bold uppercase tracking-wider text-xs">
+          <a href="#" class="hover:text-riot-lime transition">X (Twitter)</a>
+          <a href="#" class="hover:text-riot-lime transition">Instagram</a>
+          <a href="#" class="hover:text-riot-lime transition">Facebook</a>
+          <a href="#" class="hover:text-riot-lime transition">YouTube</a>
+          <a href="#" class="hover:text-riot-lime transition">TikTok</a>
+        </div>
+      </div>
+
+      <!-- Legal & ESRB Box -->
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div class="space-y-3 max-w-xl">
+          <p class="text-xs text-riot-muted leading-relaxed">
+            © 2026 Riot Games, Inc. 2XKO and any associated logos are trademarks, service marks, and/or registered trademarks of Riot Games, Inc.
+          </p>
+          <div class="flex space-x-6 text-xs font-bold uppercase tracking-wider text-gray-300">
+            <a href="#" class="hover:text-white underline">Privacy Notice</a>
+            <a href="#" class="hover:text-white underline">Terms of Service</a>
+            <a href="#" class="hover:text-white underline">Cookie Preferences</a>
+          </div>
+        </div>
+
+        <!-- ESRB Rating Box -->
+        <div class="flex items-center space-x-4 bg-riot-panel border border-riot-border p-3 clip-chamfer-sm">
+          <div class="bg-white text-black font-display text-3xl px-3 py-2 leading-none text-center">
+            T
+            <span class="block text-[9px] font-sans font-bold tracking-tighter">ESRB</span>
+          </div>
+          <div class="text-xs text-gray-300 leading-tight space-y-0.5 pr-2">
+            <div>Violence</div>
+            <div>Mild Blood</div>
+            <div>Mild Language</div>
+            <div>Alcohol Reference</div>
+            <div class="text-riot-muted pt-1 border-t border-riot-border mt-1">Users Interact, In-Game Purchases</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==================== LIGHTBOX MODAL CHO SCREENSHOTS ==================== -->
+  <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4" onclick="closeLightbox()">
+    <div class="max-w-4xl w-full bg-riot-panel border-2 border-riot-lime clip-chamfer overflow-hidden" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between px-5 py-3 bg-black border-b border-riot-border">
+        <span id="lightbox-caption" class="font-bold uppercase tracking-wider text-sm text-riot-lime">Screenshot Preview</span>
+        <button onclick="closeLightbox()" class="text-gray-400 hover:text-white font-bold text-xl leading-none">&times;</button>
+      </div>
+      <img id="lightbox-img" src="" alt="Enlarged Screenshot" class="w-full max-h-[75vh] object-contain bg-black" />
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script>
+    // 1. Toàn bộ dữ liệu Chiêu thức của Senna chuẩn theo trang 2XKO
+    const movesData = [
+      // SPECIALS
+      {
+        id: 'piercing-light',
+        category: 'Specials',
+        name: 'Piercing Light',
+        inputs: ['S1'],
+        badges: ['Hold OK', 'Air OK'],
+        cost: '0 Bar Cost',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_0.jpg',
+        desc: 'Senna fires a fast beam of light horizontally across the arena. Holding the button charges the shot for extra guard crush and builds Wraith Meter on hit.'
+      },
+      {
+        id: 'piercing-light-angled',
+        category: 'Specials',
+        name: 'Piercing Light (Angled)',
+        inputs: ['DOWN', 'S1'],
+        badges: ['Hold OK', 'Air OK'],
+        cost: '0 Bar Cost',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_1.jpg',
+        desc: 'Fires an angled relic beam upward from the ground (or downward while airborne) to snipe jump-ins and control air space.'
+      },
+      {
+        id: 'end-seeker',
+        category: 'Specials',
+        name: 'End Seeker',
+        inputs: ['FORWARD', 'S1'],
+        badges: ['Hold OK'],
+        cost: '0 Bar Cost',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_9.jpg',
+        desc: 'Senna lunges forward and delivers a heavy point-blank blast from her cannon, knocking the opponent back across the stage.'
+      },
+      {
+        id: 'final-embrace',
+        category: 'Specials',
+        name: 'Final Embrace',
+        inputs: ['BACK', 'S1'],
+        badges: ['Hold OK', 'Air OK'],
+        cost: '0 Bar Cost',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_0.jpg',
+        desc: 'Launches a slow-moving orb of Black Mist that binds the target in place on hit, allowing Senna to follow up with a full combo or Tag Launcher.'
+      },
+      {
+        id: 'last-grasp',
+        category: 'Specials',
+        name: 'Last Grasp',
+        inputs: ['DOWN', 'S2'],
+        badges: [],
+        cost: '0 Bar Cost',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_1.jpg',
+        desc: 'Summons spectral hands from the ground at mid-range to snag crouching or advancing opponents.'
+      },
+      {
+        id: 'soul-storm',
+        category: 'Specials',
+        name: 'Soul Storm',
+        inputs: ['S2'],
+        badges: ['Air Only'],
+        cost: '0 Bar Cost',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_9.jpg',
+        desc: 'While airborne, Senna unleashes a flurry of mist projectiles diagonally downward while stalling her fall momentum.'
+      },
+      {
+        id: 'wraith-shift',
+        category: 'Specials',
+        name: 'Wraith Shift',
+        inputs: ['S2'],
+        badges: ['Cost: 1 bar of Wraith meter'],
+        cost: '1 Bar Wraith Meter',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_1.jpg',
+        desc: 'Consumes 1 bar of Wraith Meter to cloak Senna in the Black Mist, transforming her into Wraith Form and unlocking high-speed rushdown specials.'
+      },
+      {
+        id: 'wraith-dive',
+        category: 'Specials',
+        name: 'Wraith Dive',
+        inputs: ['FORWARD', 'S2'],
+        badges: ['Wraith Form Only', 'Air OK'],
+        cost: 'Wraith Form',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_9.jpg',
+        desc: 'As a shadowy wraith, Senna hurtles rapidly toward the opponent, passing through projectiles and delivering a multi-hit slash.'
+      },
+      {
+        id: 'wraith-vortex',
+        category: 'Specials',
+        name: 'Wraith Vortex',
+        inputs: ['BACK', 'S2'],
+        badges: ['Wraith Form Only', 'Hold OK', 'Air OK'],
+        cost: 'Wraith Form',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_0.jpg',
+        desc: 'Creates a spinning vortex of dark mist that pulls enemies inward for devastating mix-ups.'
+      },
+
+      // SUPERS
+      {
+        id: 'dawning-shadow',
+        category: 'Supers',
+        name: 'Dawning Shadow',
+        inputs: ['DOWN', 'DOWN', 'S1'],
+        badges: ['* 1 Ultimate Meter Cost', 'Air OK'],
+        cost: '1 Ultimate Meter (*)',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_0.jpg',
+        desc: 'Senna overcharges her Relic Cannon and fires a massive full-screen beam of light and shadow that deals heavy chip damage.'
+      },
+      {
+        id: 'curse-black-mist',
+        category: 'Supers',
+        name: 'Curse of the Black Mist',
+        inputs: ['DOWN', 'DOWN', 'S2'],
+        badges: ['* 1 Ultimate Meter Cost', 'Can Hit Off the Ground'],
+        cost: '1 Ultimate Meter (*)',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_1.jpg',
+        desc: 'Erupts the battlefield in Black Mist, hitting downed opponents (OTG) and immediately shifting Senna into Wraith Form.'
+      },
+      {
+        id: 'radiant-dusk',
+        category: 'Supers',
+        name: 'Radiant Dusk',
+        inputs: ['DOWN', 'DOWN', 'S1'],
+        badges: ['* 1 Ultimate Meter Cost', 'Wraith Form Only', 'Air OK'],
+        cost: '1 Ultimate Meter (*)',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_9.jpg',
+        desc: 'An enhanced Wraith Form super beam that locks down the opponent and leaves lingering mist on the stage.'
+      },
+      {
+        id: 'black-mist-release',
+        category: 'Supers',
+        name: 'Black Mist Release',
+        inputs: ['DOWN', 'DOWN', 'S2'],
+        badges: ['* 1 Ultimate Meter Cost', 'Wraith Form Only', 'Can Hit Off the Ground'],
+        cost: '1 Ultimate Meter (*)',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_1.jpg',
+        desc: 'Detonates all remaining Wraith energy in an explosive shockwave around Senna, launching opponents high into the air.'
+      },
+
+      // ULTIMATE
+      {
+        id: 'judgment-redemption',
+        category: 'Ultimate',
+        name: 'Judgment: Redemption',
+        inputs: ['S1+S2'],
+        badges: ['*** 3 Ultimate Meter Cost', 'Can Hit Off the Ground'],
+        cost: '3 Ultimate Meter (***)',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_0.jpg',
+        desc: 'Human Form Ultimate: Senna ascends and unleashes a cataclysmic railgun barrage of pure Sentinel light across the entire battlefield.'
+      },
+      {
+        id: 'judgment-condemnation',
+        category: 'Ultimate',
+        name: 'Judgment: Condemnation',
+        inputs: ['S1+S2'],
+        badges: ['*** 3 Ultimate Meter Cost', 'Wraith Form Only', 'Can Hit Off the Ground'],
+        cost: '3 Ultimate Meter (***)',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_9.jpg',
+        desc: 'Wraith Form Ultimate: Senna drags her foe into the heart of the Black Mist before shattering them with an point-blank execution shot.'
+      },
+
+      // UNIQUE MOVES
+      {
+        id: 'low-blast',
+        category: 'Unique Moves',
+        name: 'Low Blast',
+        inputs: ['DOWN-FORWARD', 'H'],
+        badges: [],
+        cost: '0 Bar Cost',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_0.jpg',
+        desc: 'Fires a quick cannon shot aimed directly at the opponent’s feet, hitting low from mid-range.'
+      },
+      {
+        id: 'relic-slam',
+        category: 'Unique Moves',
+        name: 'Relic Slam',
+        inputs: ['FORWARD', 'M'],
+        badges: ['Overhead'],
+        cost: '0 Bar Cost',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_1.jpg',
+        desc: 'Swings the heavy Relic Cannon downward as an overhead strike that breaks crouching guards.'
+      },
+      {
+        id: 'air-dash',
+        category: 'Unique Moves',
+        name: 'Air Dash',
+        inputs: ['FORWARD', 'FORWARD'],
+        badges: ['Wraith Form Only', 'Air Only'],
+        cost: 'Wraith Form',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_9.jpg',
+        desc: 'In Wraith Form, Senna gains a fast omnidirectional air dash to cross up defenders.'
+      },
+
+      // ASSISTS
+      {
+        id: 'piercing-light-assist',
+        category: 'Assists',
+        name: 'Piercing Light Assist',
+        inputs: ['T'],
+        badges: ['Assist'],
+        cost: 'Assist Cooldown',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_0.jpg',
+        desc: 'Senna tags in from off-screen to fire a horizontal Piercing Light beam covering her partner’s approach.'
+      },
+      {
+        id: 'final-embrace-assist',
+        category: 'Assists',
+        name: 'Final Embrace Assist',
+        inputs: ['BACK', 'T'],
+        badges: ['Assist'],
+        cost: 'Assist Cooldown',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_1.jpg',
+        desc: 'Fires a binding Black Mist orb from behind the point character.'
+      },
+      {
+        id: 'wraith-wave-assist',
+        category: 'Assists',
+        name: 'Wraith Wave Assist',
+        inputs: ['T'],
+        badges: ['Wraith Form Only'],
+        cost: 'Assist Cooldown',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_9.jpg',
+        desc: 'Rushes across the ground in Wraith Form to extend combos for the active fighter.'
+      },
+      {
+        id: 'wraith-vortex-assist',
+        category: 'Assists',
+        name: 'Wraith Vortex Assist',
+        inputs: ['BACK', 'T'],
+        badges: ['Wraith Form Only'],
+        cost: 'Assist Cooldown',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_1.jpg',
+        desc: 'Summons a dark vortex on stage that holds the enemy in place for high/low mix-ups.'
+      },
+      {
+        id: 'dawning-light-assist',
+        category: 'Assists',
+        name: 'Dawning Light Assist',
+        inputs: ['DOWN', 'T'],
+        badges: ['Assist'],
+        cost: 'Assist Cooldown',
+        image: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_0.jpg',
+        desc: 'Fires an angled anti-air beam upward to protect the active champion from aerial attacks.'
+      }
+    ];
+
+    // 2. Danh sách 16 Champions dưới chân trang (Roster)
+    const championsRoster = [
+      { name: 'AHRI', role: 'Rushdown / Mobility', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg' },
+      { name: 'AKALI', role: 'Mix-up Assassin', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Akali_0.jpg' },
+      { name: 'BLITZCRANK', role: 'Grappler', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Blitzcrank_0.jpg' },
+      { name: 'BRAUM', role: 'Defensive Tank', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Braum_0.jpg' },
+      { name: 'CAITLYN', role: 'Trap Zoner', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Caitlyn_0.jpg' },
+      { name: 'DARIUS', role: 'Mid-Range Bruiser', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Darius_0.jpg' },
+      { name: 'EKKO', role: 'Time Mix-up', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ekko_0.jpg' },
+      { name: 'ILLAOI', role: 'Tentacle Pressure', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Illaoi_0.jpg' },
+      { name: 'JINX', role: 'Chaos Zoner', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_0.jpg' },
+      { name: 'LUX', role: 'Light Zoner', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lux_0.jpg' },
+      { name: 'SENNA', role: 'Hybrid Redeemer', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Senna_0.jpg', active: true },
+      { name: 'TEEMO', role: 'Setplay Specialist', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Teemo_0.jpg' },
+      { name: 'THRESH', role: 'Hook Controller', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Thresh_0.jpg' },
+      { name: 'VI', role: 'Brawler Rushdown', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Vi_0.jpg' },
+      { name: 'WARWICK', role: 'Ferocious Rushdown', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Warwick_0.jpg' },
+      { name: 'YASUO', role: 'Stance Swordsman', img: 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Yasuo_0.jpg' }
+    ];
+
+    // Hàm tạo icon nút bấm điều khiển (Inputs) chuẩn game đối kháng
+    function renderInputChips(inputs) {
+      const arrowMap = {
+        'DOWN': '↓',
+        'FORWARD': '→',
+        'BACK': '←',
+        'UP': '↑',
+        'DOWN-FORWARD': '↘'
+      };
+
+      const colorMap = {
+        'L': 'bg-blue-500 text-white border-blue-300',
+        'M': 'bg-yellow-400 text-black border-yellow-200',
+        'H': 'bg-red-500 text-white border-red-300',
+        'S1': 'bg-riot-teal text-black border-white',
+        'S2': 'bg-purple-500 text-white border-purple-300',
+        'S1+S2': 'bg-gradient-to-r from-riot-teal to-purple-500 text-black border-white',
+        'T': 'bg-riot-lime text-black border-white'
+      };
+
+      return inputs.map((inp, idx) => {
+        const plusSign = idx < inputs.length - 1 ? `<span class="text-riot-muted font-bold text-xs mx-0.5">+</span>` : '';
+        if (arrowMap[inp]) {
+          return `
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded bg-black border border-gray-600 text-white font-bold text-sm shadow-inner">
+              ${arrowMap[inp]}
+            </span>${plusSign}
+          `;
+        } else {
+          const btnStyle = colorMap[inp] || 'bg-gray-700 text-white';
+          return `
+            <span class="inline-flex items-center justify-center px-2.5 h-7 rounded-full border font-display tracking-wider text-xs ${btnStyle} shadow">
+              ${inp}
+            </span>${plusSign}
+          `;
+        }
+      }).join('');
+    }
+
+    // Hàm render Badge trạng thái (Hold OK, Air OK, Wraith Form Only...)
+    function renderBadges(badges) {
+      return badges.map(badge => {
+        let style = 'bg-black/60 border-riot-border text-gray-300';
+        if (badge.includes('Wraith')) {
+          style = 'bg-riot-teal/15 border-riot-teal/60 text-riot-teal';
+        } else if (badge.includes('Ultimate')) {
+          style = 'bg-riot-lime/15 border-riot-lime/60 text-riot-lime';
+        }
+        return `<span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 border ${style}">${badge}</span>`;
+      }).join('');
+    }
+
+    // Hàm hiển thị danh sách chiêu thức bên cột trái
+    let currentSelectedMoveId = movesData[0].id;
+    let currentFilter = 'ALL';
+
+    function renderMovesList(filterCategory = 'ALL') {
+      const container = document.getElementById('moves-container');
+      const categories = ['Specials', 'Supers', 'Ultimate', 'Unique Moves', 'Assists'];
+      const activeCategories = filterCategory === 'ALL' ? categories : [filterCategory];
+
+      let html = '';
+
+      activeCategories.forEach(cat => {
+        const catMoves = movesData.filter(m => m.category === cat);
+        if (catMoves.length === 0) return;
+
+        // Phụ đề giải thích Meter cho mục Supers
+        const superNote = cat === 'Supers'
+          ? `<span class="text-xs font-mono text-riot-lime">* 1 Ultimate Meter Cost | *** 3 Ultimate Meter Cost</span>`
+          : '';
+
+        html += `
+          <div class="space-y-3">
+            <div class="flex flex-wrap items-center justify-between border-b border-riot-border pb-2">
+              <h3 class="font-display text-2xl uppercase italic tracking-wider text-riot-lime">${cat}</h3>
+              ${superNote}
+            </div>
+            <div class="space-y-2.5">
+              ${catMoves.map(move => {
+                const isSelected = move.id === currentSelectedMoveId;
+                const activeClasses = isSelected
+                  ? 'border-riot-lime bg-riot-panelHover shadow-[0_0_20px_rgba(210,255,40,0.12)]'
+                  : 'border-riot-border bg-riot-panel hover:border-gray-500';
+
+                return `
+                  <div 
+                    onclick="selectMove('${move.id}')"
+                    data-move-id="${move.id}"
+                    class="move-row cursor-pointer border-l-4 p-4 transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${activeClasses}"
+                  >
+                    <div class="space-y-1.5">
+                      <div class="flex items-center space-x-3">
+                        <span class="font-display text-xl uppercase tracking-wide text-white">${move.name}</span>
+                      </div>
+                      <div class="flex flex-wrap gap-1.5">
+                        ${renderBadges(move.badges)}
+                      </div>
+                    </div>
+
+                    <div class="flex items-center space-x-1 shrink-0 bg-black/50 px-3 py-2 border border-riot-border clip-chamfer-sm">
+                      ${renderInputChips(move.inputs)}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    // Hàm cập nhật màn hình Preview bên phải khi bấm vào 1 chiêu thức
+    function selectMove(moveId) {
+      currentSelectedMoveId = moveId;
+      const move = movesData.find(m => m.id === moveId);
+      if (!move) return;
+
+      // Cập nhật thông tin khung bên phải
+      document.getElementById('preview-category').textContent = move.category;
+      document.getElementById('preview-meter').textContent = move.cost;
+      document.getElementById('preview-title-overlay').textContent = move.name;
+      document.getElementById('preview-name').textContent = move.name;
+      document.getElementById('preview-desc').textContent = move.desc;
+      document.getElementById('preview-image').src = move.image;
+      document.getElementById('preview-badges').innerHTML = renderBadges(move.badges);
+      document.getElementById('preview-inputs-overlay').innerHTML = `
+        <span class="text-xs font-bold uppercase tracking-widest text-riot-muted">Command Input</span>
+        <div class="flex items-center space-x-1">${renderInputChips(move.inputs)}</div>
+      `;
+
+      // Cập nhật trạng thái viền sáng cho dòng đang chọn
+      document.querySelectorAll('.move-row').forEach(row => {
+        if (row.getAttribute('data-move-id') === moveId) {
+          row.className = 'move-row cursor-pointer border-l-4 p-4 transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-riot-lime bg-riot-panelHover shadow-[0_0_20px_rgba(210,255,40,0.12)]';
+        } else {
+          row.className = 'move-row cursor-pointer border-l-4 p-4 transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-riot-border bg-riot-panel hover:border-gray-500';
+        }
+      });
+    }
+
+    // Xử lý sự kiện lọc Tab danh mục
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.getAttribute('data-category');
+        currentFilter = cat;
+
+        document.querySelectorAll('.tab-btn').forEach(b => {
+          b.className = 'tab-btn bg-riot-panel text-gray-300 hover:text-white border border-riot-border font-display uppercase tracking-wider px-5 py-2 text-base clip-chamfer-sm transition';
+        });
+        btn.className = 'tab-btn active-tab bg-riot-lime text-black font-display uppercase tracking-wider px-5 py-2 text-base clip-chamfer-sm transition';
+
+        renderMovesList(cat);
+      });
+    });
+
+    // Render danh sách 16 đấu sĩ dưới cùng
+    function renderRosterGrid() {
+      const grid = document.getElementById('roster-grid');
+      grid.innerHTML = championsRoster.map(champ => {
+        const isSenna = champ.active;
+        return `
+          <a href="#champions" class="group relative h-36 bg-riot-panel border ${isSenna ? 'border-riot-lime' : 'border-riot-border'} clip-chamfer-sm overflow-hidden block">
+            <img src="${champ.img}" alt="${champ.name}" class="w-full h-full object-cover object-center opacity-50 group-hover:opacity-90 group-hover:scale-110 transition duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+            ${isSenna ? `<span class="absolute top-2 right-2 bg-riot-lime text-black text-[10px] font-bold uppercase px-1.5 py-0.5">Viewing</span>` : ''}
+            <div class="absolute bottom-2 left-2.5 right-2">
+              <div class="font-display text-xl uppercase italic tracking-wide ${isSenna ? 'text-riot-lime' : 'text-white group-hover:text-riot-lime'} transition">
+                ${champ.name}
+              </div>
+              <div class="text-[10px] text-gray-400 truncate">${champ.role}</div>
+            </div>
+          </a>
+        `;
+      }).join('');
+    }
+
+    // Lightbox phóng to ảnh Screenshot
+    function openLightbox(imgUrl, caption) {
+      const lb = document.getElementById('lightbox');
+      document.getElementById('lightbox-img').src = imgUrl;
+      document.getElementById('lightbox-caption').textContent = caption;
+      lb.classList.remove('hidden');
+      lb.classList.add('flex');
+    }
+
+    function closeLightbox() {
+      const lb = document.getElementById('lightbox');
+      lb.classList.add('hidden');
+      lb.classList.remove('flex');
+    }
+
+    // Khởi tạo trang
+    renderMovesList('ALL');
+    selectMove(movesData[0].id);
+    renderRosterGrid();
+  </script>
+</body>
+</html>
