@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Project_D.Player;
@@ -57,6 +58,10 @@ namespace Project_D.Upgrades
         private void OnDisable()
         {
             PlayerStats.OnLevelUp -= HandleLevelUp;
+            if (_isPanelOpen && Project_D.Core.PanelQueueManager.HasInstance)
+            {
+                Project_D.Core.PanelQueueManager.Instance?.ReleasePause(this);
+            }
         }
 
         // Tự động gom hoặc sinh sẵn các thẻ bài vào Mini Pool
@@ -109,8 +114,48 @@ namespace Project_D.Upgrades
             }
         }
 
+        private Action _onBonusUpgradeCompleted;
+
+        // Cho phép các hệ thống ngoài (Bệ Thờ Buff Altar, Rương Báu...) tặng lượt chọn thẻ bài miễn phí
+        public void GrantBonusUpgrade(Action onCompleted = null)
+        {
+            _pendingLevelUps++;
+            if (onCompleted != null)
+            {
+                _onBonusUpgradeCompleted += onCompleted;
+            }
+
+            if (!_isPanelOpen)
+            {
+                ShowNextLevelUp();
+            }
+        }
+
         private void ShowNextLevelUp()
         {
+            if (_availableUpgrades == null || _availableUpgrades.Count == 0)
+            {
+#if UNITY_EDITOR
+                string[] guids = UnityEditor.AssetDatabase.FindAssets("t:UpgradeDataSO");
+                if (guids.Length > 0)
+                {
+                    if (_availableUpgrades == null) _availableUpgrades = new List<UpgradeDataSO>();
+                    foreach (var g in guids)
+                    {
+                        var u = UnityEditor.AssetDatabase.LoadAssetAtPath<UpgradeDataSO>(UnityEditor.AssetDatabase.GUIDToAssetPath(g));
+                        if (u != null && !_availableUpgrades.Contains(u)) _availableUpgrades.Add(u);
+                    }
+                }
+#else
+                var resUpgrades = Resources.LoadAll<UpgradeDataSO>("Upgrades");
+                if (resUpgrades != null && resUpgrades.Length > 0)
+                {
+                    if (_availableUpgrades == null) _availableUpgrades = new List<UpgradeDataSO>();
+                    _availableUpgrades.AddRange(resUpgrades);
+                }
+#endif
+            }
+
             if (_availableUpgrades == null || _availableUpgrades.Count == 0)
             {
                 Debug.LogWarning("<color=orange>[UPGRADE MANAGER]</color> Danh sách _availableUpgrades đang trống! Vui lòng gán các thẻ nâng cấp vào Inspector.");
@@ -130,8 +175,8 @@ namespace Project_D.Upgrades
 
             _isPanelOpen = true;
 
-            // 1. TẠM DỪNG THỜI GIAN THẾ GIỚI GAME (Pause)
-            Time.timeScale = 0f;
+            // 1. TẠM DỪNG THỜI GIAN THẾ GIỚI GAME QUA PANEL QUEUE MANAGER
+            Project_D.Core.PanelQueueManager.Instance.RequestPause(this, "UpgradeManager: LevelUp");
 
             // 2. BẬT BẢNG UI
             if (_levelUpPanel != null)
@@ -202,8 +247,12 @@ namespace Project_D.Upgrades
 
             _isPanelOpen = false;
 
-            // KHÔI PHỤC THỜI GIAN GAME (Resume)
-            Time.timeScale = 1f;
+            // KHÔI PHỤC THỜI GIAN GAME QUA PANEL QUEUE MANAGER
+            Project_D.Core.PanelQueueManager.Instance.ReleasePause(this);
+
+            var cb = _onBonusUpgradeCompleted;
+            _onBonusUpgradeCompleted = null;
+            cb?.Invoke();
         }
 
         // Thuật toán bốc ngẫu nhiên không trùng lặp và loại bỏ phần tử null
@@ -220,7 +269,7 @@ namespace Project_D.Upgrades
 
             for (int i = 0; i < targetCount; i++)
             {
-                int randomIndex = Random.Range(0, pool.Count);
+                int randomIndex = UnityEngine.Random.Range(0, pool.Count);
                 result.Add(pool[randomIndex]);
                 pool.RemoveAt(randomIndex);
             }

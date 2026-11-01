@@ -314,9 +314,9 @@ namespace Project_D.EditorTools
 
             EditorGUILayout.Space(10);
             GUI.backgroundColor = new Color(1f, 0.75f, 0.3f);
-            if (GUILayout.Button("⚡ TỰ ĐỘNG SINH TOÀN BỘ 7 PHÒNG MẪU CHUẨN (BATCH GENERATE ALL)", GUILayout.Height(40)))
+            if (GUILayout.Button("⚡ TỰ ĐỘNG SINH TRỌN BỘ 12 BIẾN THỂ PHÒNG TILEMAP ĐA DẠNG", GUILayout.Height(40)))
             {
-                BatchGenerateAllStandardRooms();
+                DungeonRoomGenerator.GenerateAllRooms(true);
             }
 
             GUI.backgroundColor = Color.white;

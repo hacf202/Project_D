@@ -9,6 +9,8 @@ namespace Project_D.Combat
         [SerializeField] private WeaponDataSO _weaponData;         // Cấu hình dữ liệu vũ khí (ScriptableObject)
         [SerializeField] private Transform _firePoint;             // Điểm xuất phát của viên đạn (nòng súng)
         [SerializeField] private LayerMask _enemyLayerMask;        // Bộ lọc: Chỉ quét Layer Enemy
+        [Tooltip("Bước góc tách cho mỗi luồng đạn phụ bổ sung xòe sang 2 bên (độ)")]
+        [SerializeField] private float _subProjectileSpreadStep = 10f;
 
         // Bộ đệm tĩnh chứa kết quả quét va chạm (Tránh sinh rác GC trên Mobile)
         private readonly Collider2D[] _targetBuffer = new Collider2D[20];
@@ -107,17 +109,11 @@ namespace Project_D.Combat
 
             int extraProjectiles = Player.PlayerStats.Instance != null ? Player.PlayerStats.Instance.ProjectilesBonus : 0;
             int count = Mathf.Max(1, _weaponData.ProjectilesPerShot + extraProjectiles);
-            float spread = _weaponData.SpreadAngle;
 
-            // Nếu bình thường bắn 1 viên nhưng được nâng cấp thêm đạn, tự động tạo góc xòe nhẹ (ví dụ 15 độ)
-            if (spread <= 0f && count > 1)
-            {
-                spread = 15f * (count - 1);
-            }
-
-            // Tính góc bắt đầu và bước nhảy góc nếu bắn nhiều viên đạn cùng lúc
-            float startAngle = count > 1 ? baseAngle - (spread / 2f) : baseAngle;
-            float angleStep = count > 1 ? spread / (count - 1) : 0f;
+            // Xác định góc tách cho các luồng đạn phụ bổ sung xòe sang 2 bên
+            float step = _weaponData.SpreadAngle > 0f 
+                ? (_weaponData.SpreadAngle / Mathf.Max(2, count - 1)) 
+                : _subProjectileSpreadStep;
 
             int baseDamage = _weaponData != null ? _weaponData.Damage : 10;
             int bonusDamage = Player.PlayerStats.Instance != null ? Player.PlayerStats.Instance.DamageBonus : 0;
@@ -126,7 +122,17 @@ namespace Project_D.Combat
 
             for (int i = 0; i < count; i++)
             {
-                float currentAngle = count > 1 ? startAngle + (i * angleStep) : baseAngle;
+                // TIA CHÍNH (i = 0): LUÔN LUÔN bắn thẳng tâm vào mục tiêu (độ lệch 0 độ)
+                // CÁC TIA PHỤ (i > 0): Là các luồng đạn phụ bổ sung xòe đều đối xứng sang 2 bên (+-10, +-20...)
+                float angleOffset = 0f;
+                if (i > 0)
+                {
+                    int pair = (i + 1) / 2;
+                    float sign = (i % 2 == 1) ? 1f : -1f;
+                    angleOffset = sign * pair * step;
+                }
+
+                float currentAngle = baseAngle + angleOffset;
                 Quaternion bulletRotation = Quaternion.Euler(0f, 0f, currentAngle);
 
                 // Lấy đạn từ Pool ra

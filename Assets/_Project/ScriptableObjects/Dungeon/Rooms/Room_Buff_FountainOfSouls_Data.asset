@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Buff_FountainOfSouls_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Buff_FountainOfSouls
+  _supportedType: 7
+  _roomPrefab: {fileID: 8242968349018595702, guid: e7267fa4228ec62449c989d124ee13ba, type: 3}
+  _selectionWeight: 10
+  _description: "Su\u1ED1i ngu\u1ED3n linh h\u1ED3n thanh t\u1EA9y v\xE0 c\u01B0\u1EDDng
+    h\xF3a to\xE0n di\u1EC7n."

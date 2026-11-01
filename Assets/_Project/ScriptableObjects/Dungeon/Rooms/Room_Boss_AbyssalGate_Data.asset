@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Boss_AbyssalGate_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Boss_AbyssalGate
+  _supportedType: 8
+  _roomPrefab: {fileID: 5855146545333485803, guid: 3aeb4b5ca4c9b624293fa488e28165a4, type: 3}
+  _selectionWeight: 10
+  _description: "C\u1ED5ng V\u1EF1c Th\u1EB3m n\u01A1i Ch\xFAa T\u1EC3 \u0110\u1ECBa
+    Ng\u1EE5c Inferno Overlord ng\u1EF1 tr\u1ECB."

@@ -167,12 +167,13 @@ namespace Project_D.Dungeon.Room
                 }
             }
 
-            // 4. Xóa Tilemap_Entities để Tilemap không tiếp tục sinh Clone tạm thời nữa
+            // 4. Xóa hoàn toàn Tilemap_Entities vì toàn bộ quái/cổng đã được bake thành GameObject thật
             var entitiesGo = transform.Find("Tilemap_Entities");
             if (entitiesGo != null)
             {
                 var entTm = entitiesGo.GetComponent<UnityEngine.Tilemaps.Tilemap>();
                 if (entTm != null) entTm.ClearAllTiles();
+                DestroyImmediate(entitiesGo.gameObject);
             }
 
             UnityEditor.EditorUtility.SetDirty(gameObject);
@@ -183,7 +184,10 @@ namespace Project_D.Dungeon.Room
         public void AutoBindReferences()
         {
 #if UNITY_EDITOR
-            BakeTilemapEntitiesToPermanentObjects();
+            if (transform.Find("Tilemap_Entities") != null)
+            {
+                BakeTilemapEntitiesToPermanentObjects();
+            }
 #endif
             // 1. Tìm PlayerSpawnPoint
             if (_playerSpawnPoint == null)

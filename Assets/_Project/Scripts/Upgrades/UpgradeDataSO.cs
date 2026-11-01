@@ -1,5 +1,6 @@
 using UnityEngine;
 using Project_D.Player;
+using Project_D.Minions;
 
 namespace Project_D.Upgrades
 {
@@ -16,17 +17,28 @@ namespace Project_D.Upgrades
         [Header("Upgrade Effect")]
         [SerializeField] private UpgradeType _type;
         [SerializeField] private float _value = 1f; // Giá trị buff (1 viên, 0.2 tốc bắn, 5 damage, 15% tốc chạy...)
+        [SerializeField] private MinionDataSO _minionData; // Dữ liệu lính đồng minh triệu hồi (nếu type == SummonMinion)
 
         public string UpgradeId => _upgradeId;
         public string Title => _title;
         public string Description => _description;
-        public Sprite Icon => _icon;
+        public Sprite Icon => _icon != null ? _icon : (_minionData != null ? _minionData.Icon : null);
         public UpgradeType Type => _type;
         public float Value => _value;
+        public MinionDataSO MinionData => _minionData;
 
-        // Áp dụng buff trực tiếp vào PlayerStats theo nguyên tắc Open-Closed
+        // Áp dụng buff trực tiếp vào PlayerStats hoặc MinionManager theo nguyên tắc Open-Closed
         public void ApplyUpgrade()
         {
+            if (_type == UpgradeType.SummonMinion)
+            {
+                if (_minionData != null && MinionManager.Instance != null)
+                {
+                    MinionManager.Instance.SummonMinion(_minionData);
+                }
+                return;
+            }
+
             if (PlayerStats.Instance == null) return;
 
             switch (_type)
@@ -48,6 +60,21 @@ namespace Project_D.Upgrades
                     break;
                 case UpgradeType.PickupRadius:
                     PlayerStats.Instance.AddPickupRadiusBonus(_value);
+                    break;
+                case UpgradeType.HealthRegen:
+                    PlayerStats.Instance.AddHealthRegenBonus(_value);
+                    break;
+                case UpgradeType.MinionDamage:
+                    MinionManager.Instance?.AddMinionDamageBonus(_value);
+                    break;
+                case UpgradeType.MinionAttackSpeed:
+                    MinionManager.Instance?.AddMinionAttackSpeedBonus(_value);
+                    break;
+                case UpgradeType.MinionMaxHealth:
+                    MinionManager.Instance?.AddMinionMaxHealthBonus(_value);
+                    break;
+                case UpgradeType.MinionRespawnSpeed:
+                    MinionManager.Instance?.AddMinionRespawnSpeedBonus(_value);
                     break;
             }
         }

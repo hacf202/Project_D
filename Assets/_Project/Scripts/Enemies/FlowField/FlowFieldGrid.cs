@@ -10,6 +10,22 @@ namespace Project_D.Enemies.FlowField
         public float CellSize { get; private set; }
         public Vector3 OriginPosition { get; private set; }
 
+        // Mảng 8 hướng cố định tĩnh để triệt tiêu 100% rác GC khi cập nhật liên tục
+        private static readonly Vector2Int[] Directions = new Vector2Int[]
+        {
+            new Vector2Int(0, 1),   // Bắc
+            new Vector2Int(0, -1),  // Nam
+            new Vector2Int(1, 0),   // Đông
+            new Vector2Int(-1, 0),  // Tây
+            new Vector2Int(1, 1),   // Đông Bắc (chéo)
+            new Vector2Int(-1, 1),  // Tây Bắc (chéo)
+            new Vector2Int(1, -1),  // Đông Nam (chéo)
+            new Vector2Int(-1, -1)  // Tây Nam (chéo)
+        };
+
+        // Hàng đợi tái sử dụng Zero-GC cho thuật toán sóng loang Dijkstra
+        private readonly Queue<FlowFieldCell> _openQueue = new Queue<FlowFieldCell>(512);
+
         public FlowFieldGrid(Vector2Int gridSize, float cellSize, Vector3 originPosition)
         {
             GridSize = gridSize;
@@ -36,17 +52,23 @@ namespace Project_D.Enemies.FlowField
         // 1. Quét tìm vật cản (Tường hầm ngục)
         public void UpdateCostField(LayerMask obstacleLayer)
         {
-            Vector2 boxHalfSize = new Vector2(CellSize * 0.45f, CellSize * 0.45f);
+            // Kích thước kiểm tra ô vật cản:
+            // Với ô kích thước 0.5m, tâm của ô đất trống liền kề cách mép tường 0.25m.
+            // Đặt checkSize = CellSize * 0.40f (0.2m x 0.2m, bán kính quét 0.1m):
+            // - Mép hộp quét của ô đất trống cách mép tường 0.15m -> KHÔNG BAO GIỜ chạm vào collider tường (Cost = 1).
+            // - Tâm và hộp quét của ô tường thực sự nằm sâu bên trong collider tường -> Nhận diện chính xác 100% (Cost = 255).
+            // - LOẠI BỎ TRIỆT ĐỂ hiện tượng ô đỏ tràn ra ngoài hành lang 4 hướng làm bít lối đi và sai lệch dòng chảy!
+            Vector2 checkSize = new Vector2(CellSize * 0.40f, CellSize * 0.40f);
 
             for (int x = 0; x < GridSize.x; x++)
             {
                 for (int y = 0; y < GridSize.y; y++)
                 {
                     FlowFieldCell cell = Cells[x, y];
-                    // Quét xem ô này có chạm vào tường không
-                    Collider2D hit = Physics2D.OverlapBox(cell.WorldPos, boxHalfSize * 2f, 0f, obstacleLayer);
+                    // Quét xem tâm hoặc diện tích lõi ô này có nằm trong collider vật cản không
+                    Collider2D hit = Physics2D.OverlapBox(cell.WorldPos, checkSize, 0f, obstacleLayer);
 
-                    if (hit != null)
+                    if (hit != null || Physics2D.OverlapPoint(cell.WorldPos, obstacleLayer) != null)
                     {
                         cell.Cost = 255; // Tường đá: Không thể đi qua
                     }
@@ -58,10 +80,31 @@ namespace Project_D.Enemies.FlowField
             }
         }
 
+        // Sao chép bản đồ vật cản từ một Grid khác mà không cần quét lại Physics2D (Zero CPU Cost)
+        public void CopyCostFrom(FlowFieldGrid sourceGrid)
+        {
+            if (sourceGrid == null || sourceGrid.GridSize != GridSize) return;
+
+            for (int x = 0; x < GridSize.x; x++)
+            {
+                for (int y = 0; y < GridSize.y; y++)
+                {
+                    Cells[x, y].Cost = sourceGrid.Cells[x, y].Cost;
+                }
+            }
+        }
+
         // 2. Thuật toán Sóng Loang Dijkstra (Integration Field)
         public void CreateIntegrationField(FlowFieldCell destinationCell)
         {
             if (destinationCell == null) return;
+            CreateIntegrationField(new[] { destinationCell });
+        }
+
+        // Hỗ trợ Đa Điểm Đến đồng mức (Multi-source Dijkstra): Tất cả điểm đến có BestCost = 0
+        public void CreateIntegrationField(IEnumerable<FlowFieldCell> destinationCells)
+        {
+            if (destinationCells == null) return;
 
             // Reset toàn bộ khoảng cách cũ
             for (int x = 0; x < GridSize.x; x++)
@@ -72,28 +115,61 @@ namespace Project_D.Enemies.FlowField
                 }
             }
 
-            destinationCell.BestCost = 0;
-            Queue<FlowFieldCell> openQueue = new Queue<FlowFieldCell>();
-            openQueue.Enqueue(destinationCell);
-
-            // 8 hướng di chuyển (4 thẳng, 4 chéo)
-            Vector2Int[] directions = new Vector2Int[]
+            _openQueue.Clear();
+            foreach (var cell in destinationCells)
             {
-                new Vector2Int(0, 1),   // Bắc
-                new Vector2Int(0, -1),  // Nam
-                new Vector2Int(1, 0),   // Đông
-                new Vector2Int(-1, 0),  // Tây
-                new Vector2Int(1, 1),   // Đông Bắc (chéo)
-                new Vector2Int(-1, 1),  // Tây Bắc (chéo)
-                new Vector2Int(1, -1),  // Đông Nam (chéo)
-                new Vector2Int(-1, -1)  // Tây Nam (chéo)
-            };
+                if (cell != null && cell.Cost != 255)
+                {
+                    cell.BestCost = 0;
+                    _openQueue.Enqueue(cell);
+                }
+            }
 
-            while (openQueue.Count > 0)
+            RunDijkstraWavefront();
+        }
+
+        // Hỗ trợ Đa Điểm Đến Có Trọng Số (Weighted Multi-source Dijkstra):
+        // Điểm đến có initialCost thấp hơn (Lính = 0) sẽ tạo hố trũng sâu hơn, hút quái mạnh hơn Player (initialCost = 25)
+        public void CreateIntegrationField(IEnumerable<(FlowFieldCell cell, ushort initialCost)> weightedDestinations)
+        {
+            if (weightedDestinations == null) return;
+
+            for (int x = 0; x < GridSize.x; x++)
             {
-                FlowFieldCell currentCell = openQueue.Dequeue();
+                for (int y = 0; y < GridSize.y; y++)
+                {
+                    Cells[x, y].ResetIntegration();
+                }
+            }
 
-                foreach (var dir in directions)
+            _openQueue.Clear();
+            foreach (var item in weightedDestinations)
+            {
+                FlowFieldCell cell = item.cell;
+                ushort initCost = item.initialCost;
+
+                if (cell != null && cell.Cost != 255)
+                {
+                    if (initCost < cell.BestCost)
+                    {
+                        cell.BestCost = initCost;
+                        _openQueue.Enqueue(cell);
+                    }
+                }
+            }
+
+            RunDijkstraWavefront();
+        }
+
+        private void RunDijkstraWavefront()
+        {
+            if (_openQueue.Count == 0) return;
+
+            while (_openQueue.Count > 0)
+            {
+                FlowFieldCell currentCell = _openQueue.Dequeue();
+
+                foreach (var dir in Directions)
                 {
                     Vector2Int neighborPos = currentCell.GridIndex + dir;
 
@@ -126,7 +202,7 @@ namespace Project_D.Enemies.FlowField
                     if (newCost < neighbor.BestCost)
                     {
                         neighbor.BestCost = newCost;
-                        openQueue.Enqueue(neighbor);
+                        _openQueue.Enqueue(neighbor);
                     }
                 }
             }
@@ -135,14 +211,6 @@ namespace Project_D.Enemies.FlowField
         // 3. Tạo Mũi Tên Dòng Chảy (Flow Field)
         public void CreateFlowField()
         {
-            Vector2Int[] directions = new Vector2Int[]
-            {
-                new Vector2Int(0, 1), new Vector2Int(0, -1),
-                new Vector2Int(1, 0), new Vector2Int(-1, 0),
-                new Vector2Int(1, 1), new Vector2Int(-1, 1),
-                new Vector2Int(1, -1), new Vector2Int(-1, -1)
-            };
-
             for (int x = 0; x < GridSize.x; x++)
             {
                 for (int y = 0; y < GridSize.y; y++)
@@ -159,7 +227,7 @@ namespace Project_D.Enemies.FlowField
                     ushort lowestCost = cell.BestCost;
                     FlowFieldCell bestNeighbor = null;
 
-                    foreach (var dir in directions)
+                    foreach (var dir in Directions)
                     {
                         Vector2Int neighborPos = cell.GridIndex + dir;
 
@@ -266,18 +334,10 @@ namespace Project_D.Enemies.FlowField
         // Tìm hướng đẩy văng quái ra khỏi tường về phía ô đất trống tối ưu nhất
         private Vector2 GetUnstuckDirection(FlowFieldCell wallCell)
         {
-            Vector2Int[] dirs = new Vector2Int[]
-            {
-                new Vector2Int(0, 1), new Vector2Int(0, -1),
-                new Vector2Int(1, 0), new Vector2Int(-1, 0),
-                new Vector2Int(1, 1), new Vector2Int(-1, 1),
-                new Vector2Int(1, -1), new Vector2Int(-1, -1)
-            };
-
             FlowFieldCell bestNeighbor = null;
             ushort lowestCost = ushort.MaxValue;
 
-            foreach (var dir in dirs)
+            foreach (var dir in Directions)
             {
                 int nx = wallCell.GridIndex.x + dir.x;
                 int ny = wallCell.GridIndex.y + dir.y;

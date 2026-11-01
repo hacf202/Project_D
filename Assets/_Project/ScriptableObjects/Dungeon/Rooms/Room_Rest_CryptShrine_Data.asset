@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Rest_CryptShrine_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Rest_CryptShrine
+  _supportedType: 5
+  _roomPrefab: {fileID: 6307949266548565646, guid: d19af1233b6a9d04ebc77fa81ba24b9a, type: 3}
+  _selectionWeight: 15
+  _description: "Th\xE1nh \u0111\u1ECBa l\u0103ng m\u1ED9 c\u1ED5 x\u01B0a y\xEAn
+    b\xECnh v\u1EDBi 4 bia \u0111\xE1 linh thi\xEAng b\u1EA3o h\u1ED9 ng\u1ECDn l\u1EEDa
+    ph\u1EE5c h\u1ED3i sinh l\u1EF1c."

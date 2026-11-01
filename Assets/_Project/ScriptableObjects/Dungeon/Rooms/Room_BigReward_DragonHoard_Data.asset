@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_BigReward_DragonHoard_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_BigReward_DragonHoard
+  _supportedType: 4
+  _roomPrefab: {fileID: 7252731367696746874, guid: aaf5976b7c4021a4888d9ea2c35c31a4, type: 3}
+  _selectionWeight: 10
+  _description: "Kho t\xE0ng c\u1EA5t gi\u1EA5u b\u1EA3o v\u1EADt r\u1ED3ng t\xEDch
+    l\u0169y ng\xE0n n\u0103m."

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5313072584036554119}
   - component: {fileID: 5740413297962959944}
   - component: {fileID: 1636176720634351858}
-  - component: {fileID: 6972326213133342059}
   m_Layer: 0
   m_Name: RoomPortal
   m_TagString: Untagged
@@ -82,7 +81,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8853924317978081904, guid: 849503e84d35f2949bfdb9273c634ae0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -149,15 +148,3 @@ MonoBehaviour:
   _labelText: {fileID: 0}
   _pulseSpeed: 3
   _pulseAmount: 0.08
---- !u!114 &6972326213133342059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4424318697154684296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e6bdc59ae0bc624999f70cd5512c762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.EditorMarker

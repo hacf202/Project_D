@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fbabdb67b45a9a4f9b7838086b21785, type: 3}
+  m_Name: Boss_NecromancerKing_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Enemies.EnemyDataSO
+  _enemyName: "Necromancer King"
+  _classification: 3
+  _attackMethod: 1
+  _prefab: {fileID: 195526909312369503, guid: 3c52b4ce156543aa9edc97446e46e2b3, type: 3}
+  _maxHealth: 2000
+  _moveSpeed: 2.8
+  _contactDamage: 20
+  _attackInterval: 1.8
+  _expReward: 500
+  _soulReward: 120
+  _attackRange: 9
+  _knockbackResistance: 1
+  _projectilePrefab: {fileID: 6811489032236033356, guid: 8ff1030ea17c43a8a69c0d463890095b, type: 3}
+  _projectileSpeed: 7
+  _expGemPrefab: {fileID: 8756600864154746060, guid: cfd514d45c7280b41b2bcc76ff73f8f2, type: 3}

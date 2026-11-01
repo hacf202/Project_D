@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6abbf7584e6e7df498726efd39b10c17, type: 3}
+  m_Name: Minion_minion_archer_T1
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Minions.MinionDataSO
+  _id: archer_t1
+  _minionName: "Cung Th\u1EE7 T\u1EADp S\u1EF1"
+  _description: "B\u1EAFn t\xEAn t\u1EA7m xa h\u1ED7 tr\u1EE3 li\xEAn t\u1EE5c."
+  _class: 1
+  _tier: 1
+  _icon: {fileID: -6041843563208488078, guid: c1932cfe4d06b0b4ab66f5dd6a254961, type: 3}
+  _maxHealth: 300
+  _attackDamage: 12
+  _attackRange: 5.5
+  _attackSpeed: 1.5
+  _moveSpeed: 4.2
+  _aggroRange: 7.5
+  _knockbackForce: 1.5
+  _attackMethod: 1
+  _projectilePrefab: {fileID: 7604196078897748447, guid: 18c30da860c40d84890a1d083b8fb3d9, type: 3}
+  _aoeRadius: 2
+  _respawnDuration: 10
+  _prefab: {fileID: 4353569848191176355, guid: 12213ed12c41f73409d65746e9f72d9e, type: 3}

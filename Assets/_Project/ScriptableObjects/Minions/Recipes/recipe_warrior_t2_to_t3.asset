@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b8f9244a7bed647af0bfd9383fb093, type: 3}
+  m_Name: recipe_warrior_t2_to_t3
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Minions.MergeRecipeSO
+  _recipeId: recipe_warrior_t2_to_t3
+  _recipeName: "H\u1EE3p Nh\u1EA5t Hi\u1EC7p S\u0129 T3"
+  _description: "G\u1ED9p 3 Chi\u1EBFn Binh T2 th\xE0nh 1 Hi\u1EC7p S\u0129 Ho\xE0ng Gia T3"
+  _ingredients:
+  - _minionData: {fileID: 11400000, guid: 8e1100ee64fe2bc41b9e7665c2df5b02, type: 2}
+    _minionId: warrior_t2
+    _count: 3
+  _inputMinionId: warrior_t2
+  _inputTier: 2
+  _requiredCount: 3
+  _outputMinion: {fileID: 11400000, guid: fdf26bb8169c7c9469d218b84ba017fc, type: 2}
+  _requiresSpecialUnlock: 0
+  _unlockConditionKey: 
+  _lockedHint: 

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Project_D.Combat;
+using Project_D.Player.Data;
 
 namespace Project_D.Player
 {
@@ -9,41 +10,76 @@ namespace Project_D.Player
         // Singleton để các hệ thống Combat, Movement, Health và UI dễ dàng truy vấn chỉ số
         public static PlayerStats Instance { get; private set; }
 
-        [Header("Base Stats (Chỉ Số Gốc Nhân Vật)")]
-        [SerializeField] private int _baseMaxHealth = 100;
-        [SerializeField] private float _baseMoveSpeed = 5f;
-        [SerializeField] private float _basePickupRadius = 3.5f;
+        [Header("Character Data Asset (ScriptableObject)")]
+        [Tooltip("Dữ liệu chỉ số gốc của nhân vật")]
+        [SerializeField] private PlayerDataSO _playerData;
 
-        [Header("Level & Experience")]
+        [Header("Runtime Level & Experience")]
         [SerializeField] private int _currentLevel = 1;
         [SerializeField] private int _currentExp = 0;
-        [SerializeField] private int _baseExpToNextLevel = 20;
-        [SerializeField] private int _expIncreasePerLevel = 15;
         private int _expToNextLevel;
 
-        [Header("Combat Modifiers (Chỉ Số Cộng Dồn Từ Thẻ Bài)")]
+        [Header("Combat Modifiers (Chỉ Số Cộng Dồn Từ Thẻ Bài / Shop)")]
         [SerializeField] private int _maxHealthBonus = 0;             // Máu tối đa cộng thêm
         [SerializeField] private float _moveSpeedModifier = 1f;       // Hệ số tốc độ chạy (1.0 = 100%)
         [SerializeField] private float _fireRateModifier = 1f;        // Hệ số tốc độ bắn (1.0 = 100%)
         [SerializeField] private int _damageBonus = 0;                // Sát thương cộng thêm
         [SerializeField] private int _projectilesBonus = 0;           // Số viên đạn bắn thêm mỗi loạt
         [SerializeField] private float _pickupRadiusBonus = 0f;       // Tăng cự ly hút nam châm
+        [SerializeField] private float _healthRegenBonus = 0f;        // Hồi máu theo thời gian cộng thêm (HP/s)
+
+        private PlayerHealth _playerHealth;
 
         // Observer Pattern: UI Thanh Exp và Bảng Level Up lắng nghe
         public static event Action<int, int, int> OnExpChanged; // currentExp, expToNextLevel, currentLevel
         public static event Action<int> OnLevelUp;               // newLevel
 
+        public PlayerDataSO PlayerData => _playerData;
+
+        // --- Base Stats (Lấy từ PlayerDataSO nếu có, hoặc Fallback an toàn) ---
+        public int BaseMaxHealth => _playerData != null ? _playerData.BaseMaxHealth : 1000;
+        public float BaseMoveSpeed => _playerData != null ? _playerData.BaseMoveSpeed : 5f;
+        public float BasePickupRadius => _playerData != null ? _playerData.BasePickupRadius : 3.5f;
+        public float BaseHealthRegen => _playerData != null ? _playerData.BaseHealthRegen : 0f;
+        public int BaseDamageBonus => _playerData != null ? _playerData.BaseDamageBonus : 0;
+        public float BaseFireRateModifier => _playerData != null ? _playerData.BaseFireRateModifier : 1f;
+        public int BaseProjectilesBonus => _playerData != null ? _playerData.BaseProjectilesBonus : 0;
+        public int BaseExpToNextLevel => _playerData != null ? _playerData.BaseExpToNextLevel : 20;
+        public int ExpIncreasePerLevel => _playerData != null ? _playerData.ExpIncreasePerLevel : 15;
+
+        // --- Runtime State Properties ---
         public int CurrentLevel => _currentLevel;
         public int CurrentExp => _currentExp;
         public int ExpToNextLevel => _expToNextLevel;
 
-        // --- Properties Tổng Hợp Chỉ Số (Base + Modifiers) ---
-        public int MaxHealth => _baseMaxHealth + _maxHealthBonus;
-        public float MoveSpeed => _baseMoveSpeed * _moveSpeedModifier;
-        public float PickupRadius => _basePickupRadius + _pickupRadiusBonus;
-        public float FireRateModifier => _fireRateModifier;
-        public int DamageBonus => _damageBonus;
-        public int ProjectilesBonus => _projectilesBonus;
+        // --- Effective Stats (Base + Modifiers) ---
+        public int MaxHealth => BaseMaxHealth + _maxHealthBonus;
+        public float MoveSpeed => BaseMoveSpeed * _moveSpeedModifier;
+        public float PickupRadius => BasePickupRadius + _pickupRadiusBonus;
+        public float FireRateModifier => BaseFireRateModifier * _fireRateModifier;
+        public int DamageBonus => BaseDamageBonus + _damageBonus;
+        public int ProjectilesBonus => BaseProjectilesBonus + _projectilesBonus;
+        public float HealthRegen => BaseHealthRegen + _healthRegenBonus;
+
+        private void Reset()
+        {
+            AutoWireComponents();
+        }
+
+        private void OnValidate()
+        {
+            AutoWireComponents();
+        }
+
+        private void AutoWireComponents()
+        {
+            if (_playerHealth == null)
+            {
+                _playerHealth = GetComponent<PlayerHealth>();
+            }
+
+            CalculateExpToNextLevel();
+        }
 
         private void Awake()
         {
@@ -54,7 +90,7 @@ namespace Project_D.Player
             }
             Instance = this;
 
-            CalculateExpToNextLevel();
+            AutoWireComponents();
         }
 
         private void Start()
@@ -112,7 +148,18 @@ namespace Project_D.Player
         private void CalculateExpToNextLevel()
         {
             // Công thức: Level 1 -> 20 exp, Level 2 -> 35 exp, Level 3 -> 50 exp...
-            _expToNextLevel = _baseExpToNextLevel + (_currentLevel - 1) * _expIncreasePerLevel;
+            _expToNextLevel = BaseExpToNextLevel + (_currentLevel - 1) * ExpIncreasePerLevel;
+        }
+
+        public void SetPlayerData(PlayerDataSO data)
+        {
+            _playerData = data;
+            CalculateExpToNextLevel();
+            var magnet = GetComponentInChildren<PlayerMagnet>();
+            if (magnet != null)
+            {
+                magnet.SetPickupRadius(PickupRadius);
+            }
         }
 
         // --- Các hàm kích hoạt nâng cấp từ thẻ (Upgrade Cards API) ---
@@ -125,7 +172,7 @@ namespace Project_D.Player
         public void AddFireRateBonus(float percent)
         {
             _fireRateModifier += percent;
-            Debug.Log($"<color=green>[UPGRADE]</color> Tốc độ bắn tăng +{percent * 100}%! Hệ số: {_fireRateModifier:F2}x");
+            Debug.Log($"<color=green>[UPGRADE]</color> Tốc độ bắn tăng +{percent * 100}%! Hệ số: {FireRateModifier:F2}x");
         }
 
         public void AddDamageBonus(int amount)
@@ -154,11 +201,17 @@ namespace Project_D.Player
         public void AddMaxHealthBonus(int amount)
         {
             _maxHealthBonus += amount;
-            if (TryGetComponent<PlayerHealth>(out var health))
+            if (_playerHealth != null)
             {
-                health.IncreaseMaxHealth(amount, true);
+                _playerHealth.OnMaxHealthBonusAdded(amount, true);
             }
             Debug.Log($"<color=green>[UPGRADE]</color> Máu tối đa tăng +{amount}! Máu tối đa mới: {MaxHealth}");
+        }
+
+        public void AddHealthRegenBonus(float amount)
+        {
+            _healthRegenBonus += amount;
+            Debug.Log($"<color=green>[UPGRADE]</color> Hồi phục máu tăng +{amount:F1} HP/s! Tổng hồi phục: {HealthRegen:F1} HP/s");
         }
     }
 }

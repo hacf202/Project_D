@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Normal_AmbushCorners_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Normal_AmbushCorners
+  _supportedType: 0
+  _roomPrefab: {fileID: 6738740663751069562, guid: 4fd9adcb0a2071a45990564b336b4df9, type: 3}
+  _selectionWeight: 10
+  _description: "\u0110\u1EA5u tr\u01B0\u1EDDng v\u1EDBi 4 h\u1ED1c t\u01B0\u1EDDng
+    ph\u1EE5c k\xEDch nh\xF4 ra \u1EDF 4 g\xF3c, trung t\xE2m s\xE0n \u0111\u1EA5u
+    m\u1EDF r\u1ED9ng."

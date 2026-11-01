@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Elite_OctagonSanctum_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Elite_OctagonSanctum
+  _supportedType: 2
+  _roomPrefab: {fileID: 2729206147467891444, guid: 4f4445f2bff227a4d84a68aac9cf8f23, type: 3}
+  _selectionWeight: 15
+  _description: "\u0110\u1EA5u tr\u01B0\u1EDDng b\xE1t gi\xE1c thi\xEAng li\xEAng
+    v\u1EDBi g\xF3c t\u01B0\u1EDDng v\xE1t ch\xE9o v\xE0 c\xE1c g\u1EDD \u0111\xE1
+    ch\u1EAFn ngang che ch\u1EDF b\u1EE5c ch\u1EC9 huy qu\xE1i tinh anh."

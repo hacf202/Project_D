@@ -58,3 +58,7 @@ sysinfo.txt
 # OS generated
 .DS_Store
 Thumbs.db
+
+# Test artifacts & temporary screenshots
+Screenshots/
+test.html

@@ -83,8 +83,8 @@ namespace Project_D.UI
         {
             ShowPanel();
 
-            // 1. TẠM DỪNG THẾ GIỚI GAME
-            Time.timeScale = 0f;
+            // 1. TẠM DỪNG THẾ GIỚI GAME QUA CRITICAL PAUSE (DỌN SẠCH CÁC MODAL ĐANG CHỜ)
+            Project_D.Core.PanelQueueManager.Instance.RequestCriticalPause(this, "PlayerDied");
 
             // 2. TÍNH TOÁN THỜI GIAN SỐNG SÓT
             int totalSeconds = (int)Time.timeSinceLevelLoad;
@@ -109,8 +109,7 @@ namespace Project_D.UI
         public void OnRestartClicked()
         {
             // BẮT BUỘC PHẢI KHÔI PHỤC timeScale = 1 TRƯỚC KHI LOAD LẠI SCENE!
-            // (Nếu không khôi phục, màn chơi mới sẽ bị bất động vĩnh viễn)
-            Time.timeScale = 1f;
+            Project_D.Core.PanelQueueManager.Instance.ForceResumeAll("RestartClicked");
 
             Debug.Log("<color=green>[GAME RESTART]</color> Đang tải lại trận đấu mới...");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

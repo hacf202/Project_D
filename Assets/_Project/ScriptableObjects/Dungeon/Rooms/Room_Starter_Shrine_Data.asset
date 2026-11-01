@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Starter_Shrine_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Starter_Shrine
+  _supportedType: 1
+  _roomPrefab: {fileID: 2230210197870711144, guid: b65bb522ea2f14e4a9fa0beb4c094d99, type: 3}
+  _selectionWeight: 10
+  _description: "\u0110\u1EC1n th\u1EDD c\u1ED5 thi\xEAng li\xEAng ban ph\u01B0\u1EDBc
+    s\u1EE9c m\u1EA1nh b\u01B0\u1EDBc v\xE0o m\xEA cung."

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Normal_RingOfFire_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Normal_RingOfFire
+  _supportedType: 0
+  _roomPrefab: {fileID: 3005975107024824993, guid: c3625f94180c11140b24730cc8ed5b80, type: 3}
+  _selectionWeight: 12
+  _description: "\u0110\u1EA5u tr\u01B0\u1EDDng h\xECnh xuy\u1EBFn v\u1EDBi kh\u1ED1i
+    t\u01B0\u1EDDng l\xF5i trung t\xE2m che ch\u1EAFn l\xE0n \u0111\u1EA1n, th\xEDch
+    h\u1EE3p chi\u1EBFn thu\u1EADt kiting v\xF2ng tr\xF2n."

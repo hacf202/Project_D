@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Rest_ZenGarden_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Rest_ZenGarden
+  _supportedType: 5
+  _roomPrefab: {fileID: 5616212582296844390, guid: 1510963fcfeafb742a0fa46856887f07, type: 3}
+  _selectionWeight: 15
+  _description: "Khu v\u01B0\u1EDDn thi\u1EC1n thanh b\xECnh v\u1EDBi c\xE1c t\u1EA3ng
+    \u0111\xE1 t\u1EF1 nhi\xEAn bao b\u1ECDc quanh \u0111\u1ED1ng l\u1EEDa tr\u1EA1i
+    \u1EA5m c\xFAng."

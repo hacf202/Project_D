@@ -26,6 +26,8 @@ namespace Project_D.Dungeon.Room
         [Header("Wave & Combat Configurations")]
         [SerializeField] private RoomWaveConfigSO _normalBattleWaveConfig;
         [SerializeField] private RoomWaveConfigSO _eliteBattleWaveConfig;
+        [SerializeField] private RoomWaveConfigSO _miniBossWaveConfig;
+        [SerializeField] private RoomWaveConfigSO _bossWaveConfig;
         [SerializeField] private EnemyDataSO[] _fallbackEnemyTypes;
         [SerializeField] private float _minSpawnRadius = 8f;
         [SerializeField] private float _maxSpawnRadius = 12f;
@@ -78,18 +80,8 @@ namespace Project_D.Dungeon.Room
                 legacySpawner.enabled = false;
             }
 
-            // Khởi tạo các cấu hình sóng mặc định nếu chưa gán
-            if (_normalBattleWaveConfig == null)
-            {
-                _normalBattleWaveConfig = ScriptableObject.CreateInstance<RoomWaveConfigSO>();
-                _normalBattleWaveConfig.CreateDefault3WaveNormal();
-            }
-
-            if (_eliteBattleWaveConfig == null)
-            {
-                _eliteBattleWaveConfig = ScriptableObject.CreateInstance<RoomWaveConfigSO>();
-                _eliteBattleWaveConfig.CreateDefault4WaveElite();
-            }
+            // Khởi tạo các cấu hình sóng mặc định đa dạng chủng loại quái nếu chưa gán
+            InitializeWaveConfigs();
 
             if (_portalVisualConfig == null)
             {
@@ -152,6 +144,8 @@ namespace Project_D.Dungeon.Room
 
             PrewarmFromConfig(_normalBattleWaveConfig, prewarmed);
             PrewarmFromConfig(_eliteBattleWaveConfig, prewarmed);
+            PrewarmFromConfig(_miniBossWaveConfig, prewarmed);
+            PrewarmFromConfig(_bossWaveConfig, prewarmed);
 
             if (_fallbackEnemyTypes != null)
             {
@@ -167,6 +161,75 @@ namespace Project_D.Dungeon.Room
                     }
                 }
             }
+
+#if UNITY_EDITOR
+            var projPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Projectiles/EnemyProjectile.prefab");
+            if (projPrefab != null && prewarmed.Add(projPrefab))
+            {
+                PoolManager.Instance.Prewarm(projPrefab, 25);
+            }
+#endif
+        }
+
+        private void InitializeWaveConfigs()
+        {
+            // Tải cơ sở dữ liệu các loại quái mới nếu chưa gán
+            var swarmer = LoadEnemySO("SkeletonSwarmer_Data");
+            var zombie = LoadEnemySO("Zombie_Data");
+            var golem = LoadEnemySO("ArmoredGolem_Data");
+            var cultist = LoadEnemySO("RangedCultist_Data");
+            var bomber = LoadEnemySO("ShadowBomber_Data");
+            var boneGolem = LoadEnemySO("MiniBoss_BoneGolem_Data");
+            var voidWatcher = LoadEnemySO("MiniBoss_VoidWatcher_Data");
+            var overlord = LoadEnemySO("Boss_InfernoOverlord_Data");
+            var necromancer = LoadEnemySO("Boss_NecromancerKing_Data");
+
+            var normalMinions = new List<EnemyDataSO>();
+            if (swarmer != null) normalMinions.Add(swarmer);
+            if (zombie != null) normalMinions.Add(zombie);
+            if (golem != null) normalMinions.Add(golem);
+            if (cultist != null) normalMinions.Add(cultist);
+            if (bomber != null) normalMinions.Add(bomber);
+
+            if (_fallbackEnemyTypes == null || _fallbackEnemyTypes.Length == 0)
+            {
+                _fallbackEnemyTypes = normalMinions.ToArray();
+            }
+
+            if (_normalBattleWaveConfig == null)
+            {
+                _normalBattleWaveConfig = ScriptableObject.CreateInstance<RoomWaveConfigSO>();
+                _normalBattleWaveConfig.PopulateNormalBattleWaves(swarmer, zombie, cultist, bomber, golem);
+            }
+
+            if (_eliteBattleWaveConfig == null)
+            {
+                _eliteBattleWaveConfig = ScriptableObject.CreateInstance<RoomWaveConfigSO>();
+                _eliteBattleWaveConfig.PopulateEliteBattleWaves(golem, cultist, bomber, swarmer);
+            }
+
+            if (_miniBossWaveConfig == null)
+            {
+                _miniBossWaveConfig = ScriptableObject.CreateInstance<RoomWaveConfigSO>();
+                var miniBoss = boneGolem != null ? boneGolem : voidWatcher;
+                _miniBossWaveConfig.PopulateMiniBossWaves(miniBoss, normalMinions.ToArray());
+            }
+
+            if (_bossWaveConfig == null)
+            {
+                _bossWaveConfig = ScriptableObject.CreateInstance<RoomWaveConfigSO>();
+                var boss = overlord != null ? overlord : necromancer;
+                _bossWaveConfig.PopulateBossWaves(boss, normalMinions.ToArray());
+            }
+        }
+
+        private EnemyDataSO LoadEnemySO(string enemyName)
+        {
+#if UNITY_EDITOR
+            var so = UnityEditor.AssetDatabase.LoadAssetAtPath<EnemyDataSO>($"Assets/_Project/ScriptableObjects/Enemies/{enemyName}.asset");
+            if (so != null) return so;
+#endif
+            return Resources.Load<EnemyDataSO>($"Enemies/{enemyName}");
         }
 
         private void PrewarmFromConfig(RoomWaveConfigSO config, HashSet<GameObject> prewarmed)
@@ -338,8 +401,16 @@ namespace Project_D.Dungeon.Room
             // 2. Tắt các điểm tương tác phi chiến đấu
             SetInteractionPointsActive(false);
 
-            // 3. Chọn cấu hình Wave phù hợp (Elite / Boss dùng 4 wave hoặc cấu hình riêng)
-            if (_currentNode.NodeType == RunNodeType.EliteBattle || _currentNode.NodeType == RunNodeType.MiniBoss || _currentNode.NodeType == RunNodeType.BossBattle)
+            // 3. Chọn cấu hình Wave phù hợp (Normal / Elite / MiniBoss / Boss)
+            if (_currentNode.NodeType == RunNodeType.BossBattle)
+            {
+                _currentWaveConfig = _bossWaveConfig != null ? _bossWaveConfig : _eliteBattleWaveConfig;
+            }
+            else if (_currentNode.NodeType == RunNodeType.MiniBoss)
+            {
+                _currentWaveConfig = _miniBossWaveConfig != null ? _miniBossWaveConfig : _eliteBattleWaveConfig;
+            }
+            else if (_currentNode.NodeType == RunNodeType.EliteBattle)
             {
                 _currentWaveConfig = _eliteBattleWaveConfig;
             }
@@ -428,6 +499,9 @@ namespace Project_D.Dungeon.Room
             {
                 spawnPos = CalculateFallbackSpawnPos();
             }
+
+            // Đảm bảo vị trí sinh quái tuyệt đối không bao giờ nằm trong tường hoặc ngoài phòng
+            spawnPos = RoomBoundaryValidator.GetNearestWalkablePosition(spawnPos);
 
             GameObject enemyObj = PoolManager.Instance.Get(enemyData.Prefab, spawnPos, Quaternion.identity);
             if (enemyObj != null)

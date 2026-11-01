@@ -1,4 +1,6 @@
 using UnityEngine;
+using Project_D.Dungeon.Room;
+using Project_D.Dungeon.Interactions;
 
 namespace Project_D.Dungeon
 {
@@ -10,6 +12,12 @@ namespace Project_D.Dungeon
     {
         private void Awake()
         {
+            // Tuyệt đối không ẩn Cổng dịch chuyển hoặc Điểm tương tác gameplay thật!
+            if (GetComponent<RoomPortal>() != null || GetComponent<InteractionPoint>() != null)
+            {
+                return;
+            }
+
             var sr = GetComponent<SpriteRenderer>();
             if (sr != null)
             {

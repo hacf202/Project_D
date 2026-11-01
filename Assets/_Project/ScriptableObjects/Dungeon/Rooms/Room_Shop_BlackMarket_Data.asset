@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Shop_BlackMarket_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Shop_BlackMarket
+  _supportedType: 6
+  _roomPrefab: {fileID: 7531338445806856902, guid: 64527afd5cc8cab47ba17f83fb9c838f, type: 3}
+  _selectionWeight: 15
+  _description: "Th\u01B0\u01A1ng h\u1ED9i ch\u1EE3 \u0111en b\xED m\u1EADt n\u1EB1m
+    s\xE2u d\u01B0\u1EDBi l\xF2ng \u0111\u1EA5t v\u1EDBi c\xE1c qu\u1EA7y \u0111\xE1
+    ki\xEAn c\u1ED1 c\u1EA5t gi\u1EEF b\u1EA3o v\u1EADt."

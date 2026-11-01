@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c60ed325564a046b97f97149bd94b1, type: 3}
+  m_Name: MinionDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Minions.MinionDatabaseSO
+  _allMinions:
+  - {fileID: 11400000, guid: 46fc85c6eae75314491eb32fd448a890, type: 2}
+  - {fileID: 11400000, guid: 95e193e622dc5304cb6642614d97867c, type: 2}
+  - {fileID: 11400000, guid: a7c3c969d2b6726459a355435d9ba5de, type: 2}
+  - {fileID: 11400000, guid: cc1a96d7cdb2b9b4c9715af744aedecb, type: 2}
+  - {fileID: 11400000, guid: a5a5469efa2062f4f84df63ad1fab5ff, type: 2}
+  - {fileID: 11400000, guid: 8e1100ee64fe2bc41b9e7665c2df5b02, type: 2}
+  - {fileID: 11400000, guid: fdf26bb8169c7c9469d218b84ba017fc, type: 2}
+  - {fileID: 11400000, guid: 7c45ded49c5e5f241a3ff87f588f1afb, type: 2}
+  _allRecipes:
+  - {fileID: 11400000, guid: e8a85f0e3dd54fb4d8fbe0038b304d0d, type: 2}
+  - {fileID: 11400000, guid: 67ccc94830ca7b94baa5feb3909c0da2, type: 2}
+  - {fileID: 11400000, guid: 72d653b2de129aa42b4857d9300bd044, type: 2}
+  - {fileID: 11400000, guid: 89f7d0ac24cad4440814aa453fb8e883, type: 2}
+  - {fileID: 11400000, guid: bcdf0fd2fcadfe147baaa81d9a6845ba, type: 2}
+  - {fileID: 11400000, guid: 8b36c1d78a8192f4e9985908c0d86218, type: 2}

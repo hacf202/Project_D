@@ -308,6 +308,16 @@ namespace Project_D.EditorTools
         {
             if (root == null) return;
             var child = root.transform.Find(childName);
+            if (child == null && childName == "Tilemap_Entities")
+            {
+                var entGo = new GameObject("Tilemap_Entities");
+                entGo.transform.SetParent(root.transform, false);
+                entGo.AddComponent<Tilemap>();
+                var tr = entGo.AddComponent<TilemapRenderer>();
+                tr.sortingOrder = 2;
+                child = entGo.transform;
+            }
+
             if (child != null)
             {
                 Selection.activeGameObject = child.gameObject;
@@ -359,7 +369,7 @@ namespace Project_D.EditorTools
 
             var sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = GetPortalSprite();
-            sr.sortingOrder = 2;
+            sr.sortingOrder = 5;
 
             var symbolGO = new GameObject("Symbol_Text");
             symbolGO.transform.SetParent(go.transform, false);
@@ -403,7 +413,7 @@ namespace Project_D.EditorTools
 
             var sr = go.AddComponent<SpriteRenderer>();
             sr.sprite = sprite;
-            sr.sortingOrder = 3;
+            sr.sortingOrder = 5;
 
             var comp = go.AddComponent<InteractionPoint>();
             var so = new SerializedObject(comp);
@@ -534,6 +544,63 @@ namespace Project_D.EditorTools
                 return AssetDatabase.LoadAssetAtPath<Sprite>(AssetDatabase.GUIDToAssetPath(guids[0]));
             }
             return null;
+        }
+
+        public static void CleanTilemapEntitiesFromRoomPrefabs()
+        {
+            string[] guids = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/_Project/Prefabs/Dungeon/Rooms" });
+            foreach (var g in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(g);
+                var root = PrefabUtility.LoadPrefabContents(path);
+                var ent = root.transform.Find("Tilemap_Entities");
+                if (ent != null)
+                {
+                    UnityEngine.Object.DestroyImmediate(ent.gameObject);
+                    PrefabUtility.SaveAsPrefabAsset(root, path);
+                    Debug.Log($"<color=green>[CLEAN]</color> Đã loại bỏ Tilemap_Entities dư thừa khỏi {path}");
+                }
+                PrefabUtility.UnloadPrefabContents(root);
+            }
+            AssetDatabase.SaveAssets();
+        }
+
+        [InitializeOnLoadMethod]
+        [MenuItem("Project_D/Dungeon/Ensure Run Assets (Map Config & Portal Config)", false, 20)]
+        public static void EnsureEssentialDungeonAssets()
+        {
+            string dungeonSoDir = "Assets/_Project/ScriptableObjects/Dungeon";
+            if (!Directory.Exists(dungeonSoDir)) Directory.CreateDirectory(dungeonSoDir);
+
+            bool createdAny = false;
+
+            // 1. RunMap_13Floors.asset
+            string mapPath = $"{dungeonSoDir}/RunMap_13Floors.asset";
+            if (AssetDatabase.LoadAssetAtPath<RunMapConfigSO>(mapPath) == null)
+            {
+                var map = ScriptableObject.CreateInstance<RunMapConfigSO>();
+                map.BuildDefault13FloorRunMap();
+                AssetDatabase.CreateAsset(map, mapPath);
+                Debug.Log($"<color=green>[DUNGEON]</color> Đã tự động tạo asset bản đồ: {mapPath}");
+                createdAny = true;
+            }
+
+            // 2. PortalVisualConfig.asset
+            string portalPath = $"{dungeonSoDir}/PortalVisualConfig.asset";
+            if (AssetDatabase.LoadAssetAtPath<PortalVisualConfigSO>(portalPath) == null)
+            {
+                var portalConfig = ScriptableObject.CreateInstance<PortalVisualConfigSO>();
+                portalConfig.PopulateDefaultDistinctIcons();
+                AssetDatabase.CreateAsset(portalConfig, portalPath);
+                Debug.Log($"<color=green>[DUNGEON]</color> Đã tự động tạo asset cấu hình cổng: {portalPath}");
+                createdAny = true;
+            }
+
+            // Chỉ lưu khi thực sự có asset mới được tạo ra để tránh làm đứt đoạn quá trình import của AssetDatabase
+            if (createdAny)
+            {
+                AssetDatabase.SaveAssets();
+            }
         }
     }
 }

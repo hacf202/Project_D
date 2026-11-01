@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 505719231388710409}
   - component: {fileID: 3142348639303903671}
   - component: {fileID: 7270321188113239474}
-  - component: {fileID: 4177503240582563337}
   m_Layer: 0
   m_Name: Buff_Altar
   m_TagString: Untagged
@@ -82,7 +81,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2309267681225949402, guid: 3afb63488635379448db75de361f65ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -148,15 +147,3 @@ MonoBehaviour:
   _oneTimeUse: 1
   _promptBubble: {fileID: 0}
   _promptLabel: {fileID: 0}
---- !u!114 &4177503240582563337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 257726489567064048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e6bdc59ae0bc624999f70cd5512c762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.EditorMarker

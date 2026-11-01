@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b8f9244a7bed647af0bfd9383fb093, type: 3}
+  m_Name: recipe_archer_t3_to_t4
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Minions.MergeRecipeSO
+  _recipeId: recipe_archer_t3_to_t4
+  _recipeName: "Dung H\u1EE3p Th\u1EA7n Ti\u1EC5n T4 (\u0110\u1EB7c Bi\u1EC7t)"
+  _description: "C\u1EA7n 2 B\u1EA1o Ti\u1EC5n T3 v\xE0 M\u1EDF Kh\xF3a B\xED Thu\u1EADt Th\u1EA7n Ti\u1EC5n"
+  _ingredients:
+  - _minionData: {fileID: 11400000, guid: a7c3c969d2b6726459a355435d9ba5de, type: 2}
+    _minionId: archer_t3
+    _count: 2
+  _inputMinionId: archer_t3
+  _inputTier: 3
+  _requiredCount: 2
+  _outputMinion: {fileID: 11400000, guid: cc1a96d7cdb2b9b4c9715af744aedecb, type: 2}
+  _requiresSpecialUnlock: 1
+  _unlockConditionKey: unlock_archer_t4
+  _lockedHint: "C\u1EA7n m\u1EDF kh\xF3a B\xED Thu\u1EADt Th\u1EA7n Ti\u1EC5n \u0111\u1EC3 dung h\u1EE3p Tier 4!"

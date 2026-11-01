@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c29d7b44402aa84d87727e2f330aa61, type: 3}
+  m_Name: Card_MinionRespawnSpeed
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Upgrades.UpgradeDataSO
+  _upgradeId: card_minion_respawn_speed
+  _title: "Ti\u1EBFng G\u1ECDi H\u1ED3i Sinh"
+  _description: "Gi\u1EA3m 30% th\u1EDDi gian \u0111\u1EBFm ng\u01B0\u1EE3c h\u1ED3i sinh c\u1EE7a L\xEDnh."
+  _icon: {fileID: 0}
+  _type: 11
+  _value: 0.3

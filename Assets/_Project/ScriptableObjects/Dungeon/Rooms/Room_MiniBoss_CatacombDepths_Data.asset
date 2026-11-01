@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_MiniBoss_CatacombDepths_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_MiniBoss_CatacombDepths
+  _supportedType: 3
+  _roomPrefab: {fileID: 4367432062910435066, guid: 1a67835caa6b1e24aad893f51c2be13b, type: 3}
+  _selectionWeight: 20
+  _description: "\u0110\u1EA1i h\u1EA7m m\u1ED9 t\u1EED th\u1EA7n s\xE2u th\u1EB3m
+    v\u1EDBi 6 c\u1ED9t \u0111\xE1 \u0111\u1ED3 s\u1ED9 che ch\u1EAFn c\xE1c \u0111\u1EE3t
+    c\xE0n qu\xE9t kinh ho\xE0ng c\u1EE7a Mini Boss."

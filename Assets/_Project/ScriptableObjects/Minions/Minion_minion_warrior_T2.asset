@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6abbf7584e6e7df498726efd39b10c17, type: 3}
+  m_Name: Minion_minion_warrior_T2
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Minions.MinionDataSO
+  _id: warrior_t2
+  _minionName: "Chi\u1EBFn Binh Gi\xE1p S\u1EAFt"
+  _description: "L\xEDnh c\u1EADn chi\u1EBFn trung c\u1EA5p, gi\xE1p c\u1EE9ng c\xE1p."
+  _class: 0
+  _tier: 2
+  _icon: {fileID: 7302198511578260810, guid: eb99589025216ad47a5cfdecc8bfae6c, type: 3}
+  _maxHealth: 260
+  _attackDamage: 35
+  _attackRange: 1.3
+  _attackSpeed: 1.3
+  _moveSpeed: 4.8
+  _aggroRange: 7
+  _knockbackForce: 1.5
+  _attackMethod: 0
+  _projectilePrefab: {fileID: 0}
+  _aoeRadius: 2
+  _respawnDuration: 10
+  _prefab: {fileID: 6667036851169251973, guid: 54cc9cf8b699d3b4cb5ca51ebabdc4dc, type: 3}

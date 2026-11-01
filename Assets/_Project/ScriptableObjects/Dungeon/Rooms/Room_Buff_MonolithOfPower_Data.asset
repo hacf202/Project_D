@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Buff_MonolithOfPower_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Buff_MonolithOfPower
+  _supportedType: 7
+  _roomPrefab: {fileID: 3868227907004673097, guid: bc36db907228c7345bc2acc511599106, type: 3}
+  _selectionWeight: 10
+  _description: "Th\u1EA1ch bia c\u1ED5 \u0111\u1EA1i kh\u1EAFc ghi b\xED thu\u1EADt
+    s\u1EE9c m\u1EA1nh v\xF4 bi\xEAn."

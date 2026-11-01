@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Project_D.Combat.WeaponDataSO
   _weaponName: Pistol
   _icon: {fileID: 0}
-  _damage: 10
+  _damage: 5
   _knockbackForce: 0
   _projectilePrefab: {fileID: 6811489032236033356, guid: d8884bb669e8e65409e8ebe25d1e8855, type: 3}
   _fireRate: 4

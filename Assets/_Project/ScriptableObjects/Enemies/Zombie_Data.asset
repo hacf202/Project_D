@@ -13,9 +13,18 @@ MonoBehaviour:
   m_Name: Zombie_Data
   m_EditorClassIdentifier: Assembly-CSharp::Project_D.Enemies.EnemyDataSO
   _enemyName: Zombie
+  _classification: 0
+  _attackMethod: 0
   _prefab: {fileID: 195526909312369503, guid: 43cbc002010e4a2439f1c3ba8d0f411c, type: 3}
   _maxHealth: 50
   _moveSpeed: 3
   _contactDamage: 5
+  _attackInterval: 1
+  _attackRange: 0
+  _knockbackResistance: 0
   _expReward: 100
+  _soulReward: 2
+  _projectilePrefab: {fileID: 0}
+  _projectileSpeed: 7
+  _explosionRadius: 2.5
   _expGemPrefab: {fileID: 8756600864154746060, guid: cfd514d45c7280b41b2bcc76ff73f8f2, type: 3}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Buff_CelestialAltar_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Buff_CelestialAltar
+  _supportedType: 7
+  _roomPrefab: {fileID: 8905896185279134782, guid: 5a203d75391bdd444ab5f8bd2ed6ada0, type: 3}
+  _selectionWeight: 15
+  _description: "\u0110\xE0n t\u1EBF thi\xEAn th\u1EC3 huy\u1EC1n b\xED v\u1EDBi
+    4 th\xE1p \u0111\xE1 d\u1EABn truy\u1EC1n n\u0103ng l\u01B0\u1EE3ng tinh t\xFA
+    ban ph\u01B0\u1EDBc l\xE0nh."

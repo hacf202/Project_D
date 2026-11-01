@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Normal_ZigZagRun_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Normal_ZigZagRun
+  _supportedType: 0
+  _roomPrefab: {fileID: 4586828311179452025, guid: 8fe027e130823424b9cac84f62e08cfe, type: 3}
+  _selectionWeight: 10
+  _description: "Ph\xF2ng chi\u1EBFn \u0111\u1EA5u h\xE0nh lang ch\u1EEF Z bu\u1ED9c
+    ng\u01B0\u1EDDi ch\u01A1i linh ho\u1EA1t n\xE9 \u0111\xF2n d\u1ECDc c\xE1c kh\xFAc
+    cua h\u1EB9p."

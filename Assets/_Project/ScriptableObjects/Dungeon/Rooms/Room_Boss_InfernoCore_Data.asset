@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Boss_InfernoCore_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Boss_InfernoCore
+  _supportedType: 8
+  _roomPrefab: {fileID: 853181349873128568, guid: 6d9d1df8c8552d54b8f970e3b78f9c5c, type: 3}
+  _selectionWeight: 30
+  _description: "L\xF5i \u0111\u1ECBa ng\u1EE5c r\u1EF1c l\u1EEDa v\u1EDBi 8 \u0111\u1EA1i
+    tr\u1EE5 dung nham, s\xE0n \u0111\u1EA5u r\u1ED9ng l\u1EDBn th\xEAnh thang cho
+    tr\u1EADn th\u01B0 h\xF9ng Tr\xF9m Cu\u1ED1i \u0111\u1EC9nh cao."

@@ -9,6 +9,10 @@ namespace Project_D.Player
         [Header("Movement Settings")]
         [SerializeField] private float _moveSpeed = 5f;
 
+        [Header("Minion Follow Zone")]
+        [Tooltip("Bán kính vòng theo sau của người chơi dành cho lính đồng minh")]
+        [SerializeField] private float _minionFollowRadius = 3.5f;
+
         [Header("Visual")]
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
@@ -16,11 +20,28 @@ namespace Project_D.Player
         private Vector2 _moveInput;
         private Vector2 _joystickInput;
 
+        public float MinionFollowRadius => _minionFollowRadius;
+        public Vector2 CurrentVelocity => _rb != null ? _rb.linearVelocity : Vector2.zero;
+        public float CurrentSpeed => PlayerStats.Instance != null ? PlayerStats.Instance.MoveSpeed : _moveSpeed;
+        public Vector2 MoveInput => _moveInput;
+        public bool IsMoving => _moveInput.sqrMagnitude > 0.01f || (_rb != null && _rb.linearVelocity.sqrMagnitude > 0.04f);
+
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+            _rb.gravityScale = 0f;
+            _rb.freezeRotation = true;
+            _rb.mass = 1000f; // Khối lượng áp đảo, không bị quái đẩy xê dịch
+
             if (_spriteRenderer == null) 
                 _spriteRenderer = GetComponent<SpriteRenderer>();
+
+            // Đảm bảo không loại trừ bất kỳ layer nào để nhận va chạm và gây sát thương chuẩn
+            var col = GetComponent<Collider2D>();
+            if (col != null)
+            {
+                col.excludeLayers = 0;
+            }
         }
 
         private void Update()
@@ -32,6 +53,7 @@ namespace Project_D.Player
         private void FixedUpdate()
         {
             Move();
+            Project_D.Dungeon.Room.RoomBoundaryValidator.ValidateAndUnstuck(transform, 0.4f, _rb);
         }
 
         private void ReadKeyboardInput()
@@ -80,6 +102,12 @@ namespace Project_D.Player
         public void SetMoveInput(Vector2 input)
         {
             _joystickInput = input;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = new Color(0.2f, 0.8f, 1f, 0.4f);
+            Gizmos.DrawWireSphere(transform.position, _minionFollowRadius);
         }
     }
 }

@@ -96,19 +96,13 @@ namespace Project_D.Dungeon.Room
             // 1. Dọn dẹp phòng cũ nếu có
             CleanUpCurrentRoom();
 
-            // 2. Tra cứu trong RoomDatabaseSO để bốc 1 biến thể phòng ngẫu nhiên
-            RoomVariationSO selectedVariation = null;
-            if (_roomDatabase != null)
+            // 2. Kiểm tra nếu Node có gán trực tiếp CustomRoomPrefab (Ưu tiên thiết kế cố định theo ý người dùng)
+            GameObject customPrefab = nodeData.CustomRoomPrefab;
+            if (customPrefab != null)
             {
-                selectedVariation = _roomDatabase.GetRandomRoomForType(nodeData.NodeType, _currentVariation);
-            }
-
-            // 3. Nếu tìm thấy biến thể có Prefab: Instantiate phòng mới
-            if (selectedVariation != null && selectedVariation.RoomPrefab != null)
-            {
-                _currentVariation = selectedVariation;
-                _currentRoomInstance = Instantiate(selectedVariation.RoomPrefab, Vector3.zero, Quaternion.identity, _roomContainer);
-                _currentRoomInstance.name = $"[ActiveRoom]_{selectedVariation.RoomName}";
+                _currentVariation = null;
+                _currentRoomInstance = Instantiate(customPrefab, Vector3.zero, Quaternion.identity, _roomContainer);
+                _currentRoomInstance.name = $"[ActiveRoom]_{customPrefab.name}";
 
                 _currentRoomLayout = _currentRoomInstance.GetComponent<RoomLayout>();
                 if (_currentRoomLayout == null)
@@ -117,13 +111,38 @@ namespace Project_D.Dungeon.Room
                     _currentRoomLayout.AutoBindReferences();
                 }
 
-                Debug.Log($"<color=green><b>[ROOM MANAGER]</b></color> Đã nạp thành công phòng: '{_currentVariation.RoomName}' cho {nodeData.DisplayName}!");
+                Debug.Log($"<color=green><b>[ROOM MANAGER]</b></color> Đã nạp phòng thiết kế riêng: '{customPrefab.name}' cho {nodeData.DisplayName}!");
             }
             else
             {
-                // Fallback nếu chưa tạo Prefab phòng cho loại này: Sử dụng phòng hiện hữu trong Scene nếu có
-                _currentRoomLayout = FindAnyObjectByType<RoomLayout>();
-                Debug.LogWarning($"[ROOM MANAGER] Không tìm thấy Prefab biến thể cho '{nodeData.NodeType}' trong Database! Sử dụng phòng mặc định trong Scene.");
+                // 3. Nếu không gán riêng: Tra cứu trong RoomDatabaseSO để bốc 1 biến thể phòng ngẫu nhiên
+                RoomVariationSO selectedVariation = null;
+                if (_roomDatabase != null)
+                {
+                    selectedVariation = _roomDatabase.GetRandomRoomForType(nodeData.NodeType, _currentVariation);
+                }
+
+                if (selectedVariation != null && selectedVariation.RoomPrefab != null)
+                {
+                    _currentVariation = selectedVariation;
+                    _currentRoomInstance = Instantiate(selectedVariation.RoomPrefab, Vector3.zero, Quaternion.identity, _roomContainer);
+                    _currentRoomInstance.name = $"[ActiveRoom]_{selectedVariation.RoomName}";
+
+                    _currentRoomLayout = _currentRoomInstance.GetComponent<RoomLayout>();
+                    if (_currentRoomLayout == null)
+                    {
+                        _currentRoomLayout = _currentRoomInstance.AddComponent<RoomLayout>();
+                        _currentRoomLayout.AutoBindReferences();
+                    }
+
+                    Debug.Log($"<color=green><b>[ROOM MANAGER]</b></color> Đã nạp thành công phòng: '{_currentVariation.RoomName}' cho {nodeData.DisplayName}!");
+                }
+                else
+                {
+                    // Fallback nếu chưa tạo Prefab phòng cho loại này: Sử dụng phòng hiện hữu trong Scene nếu có
+                    _currentRoomLayout = FindAnyObjectByType<RoomLayout>();
+                    Debug.LogWarning($"[ROOM MANAGER] Không tìm thấy Prefab biến thể cho '{nodeData.NodeType}' trong Database! Sử dụng phòng mặc định trong Scene.");
+                }
             }
 
             // 4. Đặt người chơi vào điểm xuất hiện PlayerSpawnPoint của phòng
@@ -136,8 +155,18 @@ namespace Project_D.Dungeon.Room
                 _playerTransform.position = Vector3.zero;
             }
 
-            // 5. Cập nhật FlowFieldManager để quái nhận diện bản đồ tường & vật cản của phòng mới
-            if (FlowFieldManager.Instance != null)
+            // Dịch chuyển toàn bộ lính đồng minh về vị trí an toàn xung quanh người chơi ở phòng mới
+            if (Project_D.Minions.MinionManager.Instance != null)
+            {
+                Project_D.Minions.MinionManager.Instance.TeleportAllMinionsToPlayer();
+            }
+
+            // 5. Cập nhật FlowFieldManager gắn cố định lên sàn phòng mới và nướng tường/vật cản
+            if (FlowFieldManager.Instance != null && _currentRoomLayout != null)
+            {
+                FlowFieldManager.Instance.InitializeForRoom(_currentRoomLayout);
+            }
+            else if (FlowFieldManager.Instance != null)
             {
                 FlowFieldManager.Instance.UpdateFlowField();
             }

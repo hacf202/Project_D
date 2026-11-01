@@ -1,0 +1,214 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0191501a1bb37f428766504bb538754, type: 3}
+  m_Name: RunMap_13Floors
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Run.RunMapConfigSO
+  _totalFloors: 13
+  _allNodes:
+  - _id: 1
+    _floorNumber: 1
+    _branchName: 1
+    _nodeType: 0
+    _displayName: "T\u1EA7ng 1: Qu\xE1i Th\u01B0\u1EDDng"
+    _nodeColor: {r: 0.9, g: 0.3, b: 0.3, a: 1}
+    _nextNodeIds: 02000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 80, y: 350}
+  - _id: 2
+    _floorNumber: 2
+    _branchName: 2
+    _nodeType: 1
+    _displayName: "T\u1EA7ng 2: Th\u01B0\u1EDFng Kh\u1EDFi \u0110\u1EA7u"
+    _nodeColor: {r: 0.3, g: 0.75, b: 1, a: 1}
+    _nextNodeIds: 0300000004000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 320, y: 350}
+  - _id: 3
+    _floorNumber: 3
+    _branchName: 3A
+    _nodeType: 0
+    _displayName: "T\u1EA7ng 3A: Qu\xE1i Th\u01B0\u1EDDng"
+    _nodeColor: {r: 0.9, g: 0.3, b: 0.3, a: 1}
+    _nextNodeIds: 0500000006000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 560, y: 295}
+  - _id: 4
+    _floorNumber: 3
+    _branchName: 3B
+    _nodeType: 0
+    _displayName: "T\u1EA7ng 3B: Qu\xE1i Th\u01B0\u1EDDng"
+    _nodeColor: {r: 0.9, g: 0.3, b: 0.3, a: 1}
+    _nextNodeIds: 0600000007000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 560, y: 405}
+  - _id: 5
+    _floorNumber: 4
+    _branchName: 4-Shop
+    _nodeType: 6
+    _displayName: "T\u1EA7ng 4: C\u1EEDa H\xE0ng"
+    _nodeColor: {r: 1, g: 0.85, b: 0.2, a: 1}
+    _nextNodeIds: 08000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 800, y: 240}
+  - _id: 6
+    _floorNumber: 4
+    _branchName: 4-Buff
+    _nodeType: 7
+    _displayName: "T\u1EA7ng 4: Nh\u1EADn Buff"
+    _nodeColor: {r: 0.3, g: 0.75, b: 1, a: 1}
+    _nextNodeIds: 0800000009000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 800, y: 350}
+  - _id: 7
+    _floorNumber: 4
+    _branchName: 4-Rest
+    _nodeType: 5
+    _displayName: "T\u1EA7ng 4: L\u1EEDa Tr\u1EA1i H\u1ED3i M\xE1u"
+    _nodeColor: {r: 0.2, g: 0.85, b: 0.35, a: 1}
+    _nextNodeIds: 09000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 800, y: 460}
+  - _id: 8
+    _floorNumber: 5
+    _branchName: 5A
+    _nodeType: 0
+    _displayName: "T\u1EA7ng 5A: Qu\xE1i Th\u01B0\u1EDDng"
+    _nodeColor: {r: 0.9, g: 0.3, b: 0.3, a: 1}
+    _nextNodeIds: 0a0000000b000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 1040, y: 295}
+  - _id: 9
+    _floorNumber: 5
+    _branchName: 5B-Elite
+    _nodeType: 2
+    _displayName: "T\u1EA7ng 5B: Tinh Anh Elite"
+    _nodeColor: {r: 0.9, g: 0.15, b: 0.5, a: 1}
+    _nextNodeIds: 0a0000000b000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 1040, y: 405}
+  - _id: 10
+    _floorNumber: 6
+    _branchName: 6-Rest
+    _nodeType: 5
+    _displayName: "T\u1EA7ng 6: L\u1EEDa Tr\u1EA1i H\u1ED3i M\xE1u"
+    _nodeColor: {r: 0.2, g: 0.85, b: 0.35, a: 1}
+    _nextNodeIds: 0c000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 1280, y: 295}
+  - _id: 11
+    _floorNumber: 6
+    _branchName: 6-Shop
+    _nodeType: 6
+    _displayName: "T\u1EA7ng 6: C\u1EEDa H\xE0ng"
+    _nodeColor: {r: 1, g: 0.85, b: 0.2, a: 1}
+    _nextNodeIds: 0c000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 1280, y: 405}
+  - _id: 12
+    _floorNumber: 7
+    _branchName: 7-MiniBoss
+    _nodeType: 3
+    _displayName: "T\u1EA7ng 7: MINI BOSS"
+    _nodeColor: {r: 0.85, g: 0.2, b: 0.9, a: 1}
+    _nextNodeIds: 0d000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 1520, y: 350}
+  - _id: 13
+    _floorNumber: 8
+    _branchName: 8-BigBuff
+    _nodeType: 4
+    _displayName: "T\u1EA7ng 8: Buff L\u1EDBn Sau Mini Boss"
+    _nodeColor: {r: 0.3, g: 0.75, b: 1, a: 1}
+    _nextNodeIds: 0e0000000f000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 1760, y: 350}
+  - _id: 14
+    _floorNumber: 9
+    _branchName: 9A
+    _nodeType: 0
+    _displayName: "T\u1EA7ng 9A: Qu\xE1i Th\u01B0\u1EDDng"
+    _nodeColor: {r: 0.9, g: 0.3, b: 0.3, a: 1}
+    _nextNodeIds: 1000000011000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 2000, y: 295}
+  - _id: 15
+    _floorNumber: 9
+    _branchName: 9B-Elite
+    _nodeType: 2
+    _displayName: "T\u1EA7ng 9B: Tinh Anh Elite"
+    _nodeColor: {r: 0.9, g: 0.15, b: 0.5, a: 1}
+    _nextNodeIds: 1000000011000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 2000, y: 405}
+  - _id: 16
+    _floorNumber: 10
+    _branchName: 10-Buff
+    _nodeType: 7
+    _displayName: "T\u1EA7ng 10: Nh\u1EADn Buff"
+    _nodeColor: {r: 0.3, g: 0.75, b: 1, a: 1}
+    _nextNodeIds: 1200000013000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 2240, y: 295}
+  - _id: 17
+    _floorNumber: 10
+    _branchName: 10-Rest
+    _nodeType: 5
+    _displayName: "T\u1EA7ng 10: L\u1EEDa Tr\u1EA1i H\u1ED3i M\xE1u"
+    _nodeColor: {r: 0.2, g: 0.85, b: 0.35, a: 1}
+    _nextNodeIds: 1300000014000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 2240, y: 405}
+  - _id: 18
+    _floorNumber: 11
+    _branchName: 11A
+    _nodeType: 0
+    _displayName: "T\u1EA7ng 11A: Qu\xE1i Th\u01B0\u1EDDng"
+    _nodeColor: {r: 0.9, g: 0.3, b: 0.3, a: 1}
+    _nextNodeIds: 15000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 2480, y: 240}
+  - _id: 19
+    _floorNumber: 11
+    _branchName: 11B-Elite
+    _nodeType: 2
+    _displayName: "T\u1EA7ng 11B: Tinh Anh Elite"
+    _nodeColor: {r: 0.9, g: 0.15, b: 0.5, a: 1}
+    _nextNodeIds: 15000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 2480, y: 350}
+  - _id: 20
+    _floorNumber: 11
+    _branchName: 11C-Elite
+    _nodeType: 2
+    _displayName: "T\u1EA7ng 11C: Tinh Anh Elite"
+    _nodeColor: {r: 0.9, g: 0.15, b: 0.5, a: 1}
+    _nextNodeIds: 15000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 2480, y: 460}
+  - _id: 21
+    _floorNumber: 12
+    _branchName: 12-Rest
+    _nodeType: 5
+    _displayName: "T\u1EA7ng 12: L\u1EEDa Tr\u1EA1i Chu\u1EA9n B\u1ECB"
+    _nodeColor: {r: 0.2, g: 0.85, b: 0.35, a: 1}
+    _nextNodeIds: 16000000
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 2720, y: 350}
+  - _id: 22
+    _floorNumber: 13
+    _branchName: 13-BOSS
+    _nodeType: 8
+    _displayName: "T\u1EA7ng 13: TR\xD9M CU\u1ED0I BOSS"
+    _nodeColor: {r: 1, g: 0.2, b: 0.1, a: 1}
+    _nextNodeIds: 
+    _customRoomPrefab: {fileID: 0}
+    _editorPosition: {x: 2960, y: 350}

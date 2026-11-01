@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_BigReward_TreasureTomb_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_BigReward_TreasureTomb
+  _supportedType: 4
+  _roomPrefab: {fileID: 8482500601241455975, guid: fdd2652dbe442c94c8d71dab9813722f, type: 3}
+  _selectionWeight: 10
+  _description: "H\u1EA7m m\u1ED9 kho b\xE1u c\u1ED5 ch\xF4n gi\u1EA5u v\xF4 s\u1ED1
+    r\u01B0\u01A1ng b\xE1u qu\xFD gi\xE1."

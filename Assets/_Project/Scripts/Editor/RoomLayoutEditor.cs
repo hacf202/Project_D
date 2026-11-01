@@ -475,9 +475,6 @@ namespace Project_D.EditorTools
             DrawTilemapIntegrationSection();
             EditorGUILayout.Space(8);
 
-            DrawAssetPaletteSection();
-            EditorGUILayout.Space(8);
-
             DrawLevelDesignToolbar();
             EditorGUILayout.Space(10);
 
@@ -711,23 +708,6 @@ namespace Project_D.EditorTools
             EditorGUILayout.EndVertical();
         }
 
-        private void DrawAssetPaletteSection()
-        {
-            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            EditorGUILayout.LabelField("🎨 PALETTE TÀI NGUYÊN (KÉO THẢ ASSET CỦA BẠN VÀO ĐÂY)", EditorStyles.boldLabel);
-            EditorGUILayout.HelpBox("Bạn có thể kéo bất kỳ Sprite/Prefab mới nào vào các ô dưới đây để bút vẽ sử dụng tài nguyên của bạn!", MessageType.Info);
-
-            _customFloorSprite = (Sprite)EditorGUILayout.ObjectField("Sprite Sàn Nhà:", _customFloorSprite, typeof(Sprite), false);
-            _floorColor = EditorGUILayout.ColorField("Màu Sàn:", _floorColor);
-
-            EditorGUILayout.Space(2);
-            _customWallSprite = (Sprite)EditorGUILayout.ObjectField("Sprite Tường/Đá:", _customWallSprite, typeof(Sprite), false);
-            _wallColor = EditorGUILayout.ColorField("Màu Tường:", _wallColor);
-
-            EditorGUILayout.Space(2);
-            _customEntityPrefab = (GameObject)EditorGUILayout.ObjectField("Prefab Tự Chọn (Bẫy/Thùng/Entity):", _customEntityPrefab, typeof(GameObject), false);
-            EditorGUILayout.EndVertical();
-        }
 
         private void DrawLevelDesignToolbar()
         {

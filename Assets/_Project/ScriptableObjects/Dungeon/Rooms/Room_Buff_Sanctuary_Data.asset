@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Buff_Sanctuary_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Buff_Sanctuary
+  _supportedType: 7
+  _roomPrefab: {fileID: 1999313006100359236, guid: 4300ec9b3c3cf9445aaaf820b2d37972, type: 3}
+  _selectionWeight: 15
+  _description: "Th\xE1nh \u0111i\u1EC7n linh thi\xEAng v\u1EDBi h\xE0ng c\u1ED9t
+    d\u1EABn l\u1ED1i t\u1EDBi b\u1EC7 th\u1EDD ban ph\u01B0\u1EDBc k\u1EF9 n\u0103ng."

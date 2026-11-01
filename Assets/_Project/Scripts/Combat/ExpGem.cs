@@ -19,8 +19,12 @@ namespace Project_D.Combat
         // Observer Pattern: Hệ thống UI, PlayerStats, Audio chỉ cần lắng nghe sự kiện này
         public static event Action<int> OnExpCollected;
 
+        private static int _globalOrderCounter = 0;
+
         private GameObject _prefabOrigin;
         private Transform _targetTransform;
+        private SpriteRenderer _spriteRenderer;
+        private Animator _animator;
         private bool _isAttracted;
         private bool _isCollected;
         private float _currentSpeed;
@@ -29,6 +33,8 @@ namespace Project_D.Combat
         private void Awake()
         {
             _collectDistanceSqr = _collectDistance * _collectDistance;
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _animator = GetComponent<Animator>();
             
             // Đảm bảo Collider là Trigger để không cản trở di chuyển
             var col = GetComponent<Collider2D>();
@@ -48,6 +54,25 @@ namespace Project_D.Combat
             _isCollected = false;
             _targetTransform = null;
             _currentSpeed = _initialSpeed;
+
+            // Xử lý triệt để lỗi chớp nháy (Z-fighting / Sorting Order Tie-break):
+            // 1. Phân tầng SortingOrder duy nhất (2 -> 51) nằm trên sàn nhà (Order 0) và dưới nhân vật (Order 5)
+            _globalOrderCounter = (_globalOrderCounter + 1) % 500;
+            if (_spriteRenderer != null)
+            {
+                _spriteRenderer.sortingOrder = 2 + (_globalOrderCounter % 50);
+            }
+
+            // 2. Micro-Z depth phân lớp cố định: loại bỏ xung đột Depth Buffer của Camera
+            Vector3 pos = transform.position;
+            pos.z = -0.0001f * (_globalOrderCounter + 1);
+            transform.position = pos;
+
+            // 3. Phân tán pha chuyển động (Animation Cycle Offset) giúp các viên ngọc lấp lánh tự nhiên
+            if (_animator != null && _animator.isActiveAndEnabled)
+            {
+                _animator.Play(0, -1, UnityEngine.Random.value);
+            }
         }
 
         // Được kích hoạt bởi PlayerMagnet khi Player đi vào phạm vi hút

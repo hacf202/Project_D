@@ -4,11 +4,21 @@ using UnityEngine;
 
 namespace Project_D.Player
 {
+    [SelectionBase]
+    [DisallowMultipleComponent]
     public class PlayerHealth : MonoBehaviour
     {
-        [Header("Health Settings")]
-        [SerializeField] private int _maxHealth = 100;
-        private int _currentHealth;
+        [Header("Stats Source (Liên kết PlayerStats)")]
+        [Tooltip("Tham chiếu trực tiếp tới PlayerStats trên cùng nhân vật. Tự động liên kết nếu để trống.")]
+        [SerializeField] private PlayerStats _playerStats;
+
+        [Header("Health Status (Trạng Thái Sinh Lực)")]
+        [Tooltip("Lượng máu tối đa dự phòng (chỉ áp dụng khi không có PlayerStats)")]
+        [SerializeField] private int _fallbackMaxHealth = 1000;
+        [Tooltip("Lượng máu hiện tại")]
+        [SerializeField] private int _currentHealth;
+        [Tooltip("Máu tối đa hiệu dụng đang áp dụng")]
+        [SerializeField] private int _runtimeMaxHealth;
 
         [Header("Invulnerability Frames (I-Frames)")]
         [SerializeField] private float _iFrameDuration = 0.5f;
@@ -19,40 +29,127 @@ namespace Project_D.Player
         public static event Action<int, int> OnHealthChanged; // currentHealth, maxHealth
         public static event Action OnPlayerDied;
 
+        private bool _isInitialized;
         private bool _isInvulnerable;
         private Coroutine _iFrameCoroutine;
         private Color _originalColor = Color.white;
+        private float _regenAccumulator = 0f;
+
+        public static PlayerHealth Instance { get; private set; }
 
         public int CurrentHealth => _currentHealth;
-        public int MaxHealth => _maxHealth;
+        // Single Source of Truth: MaxHealth luôn query từ PlayerStats nếu có
+        public int MaxHealth => _playerStats != null ? _playerStats.MaxHealth : (PlayerStats.Instance != null ? PlayerStats.Instance.MaxHealth : _fallbackMaxHealth);
         public bool IsAlive => _currentHealth > 0;
         public bool IsInvulnerable => _isInvulnerable;
+        public PlayerStats LinkedStats => _playerStats;
 
-        private void Awake()
+        private void Reset()
         {
-            _currentHealth = _maxHealth;
+            AutoWireComponents();
+        }
+
+        private void OnValidate()
+        {
+            AutoWireComponents();
+        }
+
+        private void AutoWireComponents()
+        {
+            if (_playerStats == null)
+            {
+                _playerStats = GetComponent<PlayerStats>();
+            }
 
             if (_spriteRenderer == null)
             {
                 _spriteRenderer = GetComponent<SpriteRenderer>();
             }
 
+            // Đồng bộ giá trị dự phòng theo PlayerDataSO nếu có
+            if (_playerStats != null && _playerStats.PlayerData != null)
+            {
+                _fallbackMaxHealth = _playerStats.PlayerData.BaseMaxHealth;
+            }
+
+            if (!Application.isPlaying)
+            {
+                _runtimeMaxHealth = MaxHealth;
+                if (_currentHealth <= 0 || _currentHealth > _runtimeMaxHealth)
+                {
+                    _currentHealth = _runtimeMaxHealth;
+                }
+            }
+        }
+
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+                return;
+            }
+            Instance = this;
+
+            AutoWireComponents();
+
             if (_spriteRenderer != null)
             {
                 _originalColor = _spriteRenderer.color;
+            }
+
+            // Khởi tạo máu ban đầu ngay trong Awake để an toàn trước mọi race condition
+            InitializeHealth();
+        }
+
+        private void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
             }
         }
 
         private void Start()
         {
-            if (PlayerStats.Instance != null)
+            // Đảm bảo dữ liệu máu đã khởi tạo và bắn sự kiện cập nhật HUD
+            if (!_isInitialized)
             {
-                _maxHealth = PlayerStats.Instance.MaxHealth;
-                _currentHealth = _maxHealth;
+                InitializeHealth();
             }
 
-            // Bắn tín hiệu ban đầu để cập nhật UI lúc mới vào game
-            OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+            _runtimeMaxHealth = MaxHealth;
+            OnHealthChanged?.Invoke(_currentHealth, _runtimeMaxHealth);
+        }
+
+        private void Update()
+        {
+            HandleHealthRegen();
+        }
+
+        private void InitializeHealth()
+        {
+            _runtimeMaxHealth = MaxHealth;
+            _currentHealth = _runtimeMaxHealth;
+            _isInitialized = true;
+        }
+
+        // Hồi máu thụ động theo thời gian dựa trên chỉ số HealthRegen từ PlayerStats
+        private void HandleHealthRegen()
+        {
+            if (!IsAlive) return;
+
+            float regenRate = _playerStats != null ? _playerStats.HealthRegen : (PlayerStats.Instance != null ? PlayerStats.Instance.HealthRegen : 0f);
+            if (regenRate > 0f && _currentHealth < MaxHealth)
+            {
+                _regenAccumulator += regenRate * Time.deltaTime;
+                if (_regenAccumulator >= 1f)
+                {
+                    int healAmount = Mathf.FloorToInt(_regenAccumulator);
+                    _regenAccumulator -= healAmount;
+                    Heal(healAmount);
+                }
+            }
         }
 
         private void OnDisable()
@@ -72,15 +169,16 @@ namespace Project_D.Player
             _isInvulnerable = false;
         }
 
-        // Nhận sát thương từ quái
+        // Nhận sát thương từ quái hoặc bẫy
         public void TakeDamage(int damage)
         {
             if (!IsAlive || _isInvulnerable || damage <= 0) return;
 
             _currentHealth = Mathf.Max(0, _currentHealth - damage);
-            Debug.Log($"<color=magenta>[PLAYER HIT]</color> Player bị trừ {damage} máu! Còn: {_currentHealth}/{_maxHealth}");
+            _runtimeMaxHealth = MaxHealth;
+            Debug.Log($"<color=magenta>[PLAYER HIT]</color> Player bị trừ {damage} máu! Còn: {_currentHealth}/{_runtimeMaxHealth}");
 
-            OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+            OnHealthChanged?.Invoke(_currentHealth, _runtimeMaxHealth);
 
             if (_currentHealth <= 0)
             {
@@ -102,37 +200,61 @@ namespace Project_D.Player
         {
             if (!IsAlive || amount <= 0) return;
 
-            _currentHealth = Mathf.Min(_maxHealth, _currentHealth + amount);
-            Debug.Log($"<color=green>[PLAYER HEAL]</color> Hồi phục {amount} máu! Hiện tại: {_currentHealth}/{_maxHealth}");
+            _runtimeMaxHealth = MaxHealth;
+            _currentHealth = Mathf.Min(_runtimeMaxHealth, _currentHealth + amount);
+            Debug.Log($"<color=green>[PLAYER HEAL]</color> Hồi phục {amount} máu! Hiện tại: {_currentHealth}/{_runtimeMaxHealth}");
 
-            OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+            OnHealthChanged?.Invoke(_currentHealth, _runtimeMaxHealth);
         }
 
         // Hồi máu theo % máu tối đa (ví dụ 0.3f = hồi 30% máu)
         public void HealPercent(float percent)
         {
-            int healAmount = Mathf.RoundToInt(_maxHealth * Mathf.Clamp01(percent));
+            int healAmount = Mathf.RoundToInt(MaxHealth * Mathf.Clamp01(percent));
             Heal(healAmount);
         }
 
         // Hồi đầy 100% máu
         public void HealFull()
         {
-            Heal(_maxHealth);
+            Heal(MaxHealth);
         }
 
-        // Mở rộng máu tối đa (cho thẻ nâng cấp ở Pillar 3)
-        public void IncreaseMaxHealth(int amount, bool healEquivalent = true)
+        // Nhận thông báo khi máu tối đa tăng từ PlayerStats
+        public void OnMaxHealthBonusAdded(int amount, bool healEquivalent = true)
         {
             if (amount <= 0) return;
 
-            _maxHealth += amount;
+            _runtimeMaxHealth = MaxHealth;
             if (healEquivalent)
             {
-                _currentHealth += amount;
+                _currentHealth = Mathf.Min(_runtimeMaxHealth, _currentHealth + amount);
             }
 
-            OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+            OnHealthChanged?.Invoke(_currentHealth, _runtimeMaxHealth);
+        }
+
+        // Mở rộng máu tối đa (Tương thích ngược nếu các script bên ngoài gọi trực tiếp)
+        public void IncreaseMaxHealth(int amount, bool healEquivalent = true)
+        {
+            if (_playerStats != null)
+            {
+                _playerStats.AddMaxHealthBonus(amount);
+            }
+            else if (PlayerStats.Instance != null)
+            {
+                PlayerStats.Instance.AddMaxHealthBonus(amount);
+            }
+            else
+            {
+                _fallbackMaxHealth += amount;
+                _runtimeMaxHealth = _fallbackMaxHealth;
+                if (healEquivalent)
+                {
+                    _currentHealth += amount;
+                }
+                OnHealthChanged?.Invoke(_currentHealth, _runtimeMaxHealth);
+            }
         }
 
         private IEnumerator IFrameRoutine()

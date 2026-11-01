@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Elite_Crucible_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Elite_Crucible
+  _supportedType: 2
+  _roomPrefab: {fileID: 3964497972053156788, guid: 9f7692725cc1a3f46ace5927c41d9609, type: 3}
+  _selectionWeight: 10
+  _description: "\u0110\u1EA5u tr\u01B0\u1EDDng dung nham Crucible th\u1EED th\xE1ch
+    v\u1EDBi qu\xE1i tinh anh."

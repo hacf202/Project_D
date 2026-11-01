@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_MiniBoss_Arena_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_MiniBoss_Arena
+  _supportedType: 3
+  _roomPrefab: {fileID: 2105551939505962047, guid: 512d75a82d4b47240a65b78dc50b01bd, type: 3}
+  _selectionWeight: 20
+  _description: "\u0110\u1EA1i \u0111\u1EA5u tr\u01B0\u1EDDng Mini Boss T\u1EA7ng
+    7 v\u1EDBi 4 tr\u1EE5 th\xE0nh tr\xEC ki\xEAn c\u1ED1 b\u1EA3o v\u1EC7 khu v\u1EF1c
+    trung t\xE2m."

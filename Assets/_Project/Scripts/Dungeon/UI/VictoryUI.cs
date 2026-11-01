@@ -59,8 +59,8 @@ namespace Project_D.Dungeon.UI
         {
             ShowPanel();
 
-            // Tạm dừng thế giới game để người chơi chiêm ngưỡng chiến thắng
-            Time.timeScale = 0f;
+            // Tạm dừng thế giới game qua Critical Pause (Dọn sạch các modal đang chờ)
+            Project_D.Core.PanelQueueManager.Instance.RequestCriticalPause(this, "RunCompleted");
 
             // 1. Thời gian hoàn thành
             int totalSeconds = (int)Time.timeSinceLevelLoad;
@@ -91,7 +91,7 @@ namespace Project_D.Dungeon.UI
         private void OnRestartRunClicked()
         {
             // BẮT BUỘC khôi phục timeScale = 1 trước khi load lại Scene
-            Time.timeScale = 1f;
+            Project_D.Core.PanelQueueManager.Instance.ForceResumeAll("RestartRunClicked");
 
             Debug.Log("<color=green>[NEW RUN]</color> Tải lại Scene để bắt đầu lượt chơi 13 tầng mới...");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

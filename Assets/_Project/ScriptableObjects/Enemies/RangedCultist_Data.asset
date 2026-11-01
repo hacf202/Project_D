@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fbabdb67b45a9a4f9b7838086b21785, type: 3}
+  m_Name: RangedCultist_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Enemies.EnemyDataSO
+  _enemyName: "Ranged Cultist"
+  _classification: 0
+  _attackMethod: 1
+  _prefab: {fileID: 195526909312369503, guid: 7fcc1baeaee84e57b8392d029b37d400, type: 3}
+  _maxHealth: 35
+  _moveSpeed: 3.2
+  _contactDamage: 6
+  _attackInterval: 2
+  _expReward: 25
+  _soulReward: 3
+  _attackRange: 6
+  _knockbackResistance: 0.1
+  _projectilePrefab: {fileID: 6811489032236033356, guid: 8ff1030ea17c43a8a69c0d463890095b, type: 3}
+  _projectileSpeed: 7
+  _expGemPrefab: {fileID: 8756600864154746060, guid: cfd514d45c7280b41b2bcc76ff73f8f2, type: 3}

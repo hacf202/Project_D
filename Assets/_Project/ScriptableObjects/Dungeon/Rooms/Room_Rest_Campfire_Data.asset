@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Rest_Campfire_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Rest_Campfire
+  _supportedType: 5
+  _roomPrefab: {fileID: 6109352807016958891, guid: 34c7cff7394082d499f0d85a015095e5, type: 3}
+  _selectionWeight: 15
+  _description: "Khu v\u1EF1c l\u1EEDa tr\u1EA1i y\xEAn t\u0129nh gi\xFAp h\u1ED3i
+    ph\u1EE5c sinh l\u1EF1c v\xE0 chu\u1EA9n b\u1ECB cho c\xE1c th\u1EED th\xE1ch
+    ph\xEDa tr\u01B0\u1EDBc."

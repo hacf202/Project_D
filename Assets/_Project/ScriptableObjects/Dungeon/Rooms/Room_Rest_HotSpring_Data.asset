@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_Rest_HotSpring_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_Rest_HotSpring
+  _supportedType: 5
+  _roomPrefab: {fileID: 213478215729070360, guid: 7223b62fd07a3be438240d09726015ad, type: 3}
+  _selectionWeight: 10
+  _description: "Su\u1ED1i n\u01B0\u1EDBc n\xF3ng \u1EA5m \xE1p xua tan m\u1EC7t
+    m\u1ECFi v\xE0 ph\u1EE5c h\u1ED3i sinh l\u1EF1c."

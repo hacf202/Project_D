@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c3d4e5f60718293a4b5c6d7e8f90a1, type: 3}
+  m_Name: Room_BigReward_Vault_Data
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Dungeon.Room.RoomVariationSO
+  _roomName: Room_BigReward_Vault
+  _supportedType: 4
+  _roomPrefab: {fileID: 2598600296254849518, guid: bb51e1884bd96d740ac27a6d8a9cff5f, type: 3}
+  _selectionWeight: 20
+  _description: "Kho b\xE1u ho\xE0ng gia linh thi\xEAng ban th\u01B0\u1EDFng l\u1EDBn
+    sau chi\u1EBFn th\u1EAFng Mini Boss."

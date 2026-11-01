@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7b8f9244a7bed647af0bfd9383fb093, type: 3}
+  m_Name: recipe_warrior_t3_to_t4
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Minions.MergeRecipeSO
+  _recipeId: recipe_warrior_t3_to_t4
+  _recipeName: "Dung H\u1EE3p Th\xE1nh Th\xFA T4 (\u0110\u1EB7c Bi\u1EC7t)"
+  _description: "C\u1EA7n 2 Hi\u1EC7p S\u0129 T3 v\xE0 M\u1EDF Kh\xF3a B\xED Thu\u1EADt Chi\u1EBFn Binh"
+  _ingredients:
+  - _minionData: {fileID: 11400000, guid: fdf26bb8169c7c9469d218b84ba017fc, type: 2}
+    _minionId: warrior_t3
+    _count: 2
+  _inputMinionId: warrior_t3
+  _inputTier: 3
+  _requiredCount: 2
+  _outputMinion: {fileID: 11400000, guid: 7c45ded49c5e5f241a3ff87f588f1afb, type: 2}
+  _requiresSpecialUnlock: 1
+  _unlockConditionKey: unlock_warrior_t4
+  _lockedHint: "C\u1EA7n m\u1EDF kh\xF3a B\xED Thu\u1EADt Chi\u1EBFn Binh \u0111\u1EC3 dung h\u1EE3p Tier 4!"

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c29d7b44402aa84d87727e2f330aa61, type: 3}
+  m_Name: card_summon_warrior_t1
+  m_EditorClassIdentifier: Assembly-CSharp::Project_D.Upgrades.UpgradeDataSO
+  _upgradeId: card_summon_warrior_t1
+  _title: "Tri\u1EC7u H\u1ED3i Chi\u1EBFn Binh"
+  _description: "Tri\u1EC7u h\u1ED3i 1 Chi\u1EBFn Binh Ki\u1EBFm G\u1ED7 (Tier 1)
+    h\u1ED7 tr\u1EE3 chi\u1EBFn \u0111\u1EA5u."
+  _icon: {fileID: 0}
+  _type: 6
+  _value: 1
+  _minionData: {fileID: 11400000, guid: a5a5469efa2062f4f84df63ad1fab5ff, type: 2}
